@@ -55,7 +55,7 @@ export default function Home() {
             <span aria-label="Instagram profile not yet provided"><FaInstagram /></span>
             <span aria-label="LinkedIn profile not yet provided"><FaLinkedinIn /></span>
             <a href="https://github.com/codeswithdark83-sudo" target="_blank" rel="noreferrer" aria-label="GitHub"><FaGithub /></a>
-            <a href="#contact" aria-label="WhatsApp contact"><FaWhatsapp /></a>
+            <span aria-label="WhatsApp profile not yet provided"><FaWhatsapp /></span>
             <a href="#contact" aria-label="Email contact"><FaEnvelope /></a>
           </div>
           <div className="tech-stack"><div className="tech-title">Tech Stack <span /></div><div className="tech-items">
