@@ -18,9 +18,9 @@
 .nav-links a.active:after{content:"";position:absolute;bottom:0;left:-9px;right:-9px;height:2px;background:#23aaff}
 .theme-toggle{justify-self:end;display:flex;gap:15px;align-items:center;padding:9px 13px;margin:0;border-radius:24px;color:#dce9f8;border-color:rgba(91,135,191,.24);font-size:17px}
 .theme-toggle svg:first-child{color:#dce9f8}.theme-toggle svg:last-child{color:#62bfff}
-.hero.section-wrap{min-height:calc(100svh - 78px);height:calc(100svh - 78px);max-height:1100px;padding:0 4.8vw;display:block;border-bottom:0;background:radial-gradient(ellipse at 69% 33%,#0c1d37 0%,transparent 45%)}
+.hero.section-wrap{min-height:calc(100svh - 78px);height:auto;max-height:none;padding:0 4.8vw;display:block;border-bottom:0;background:radial-gradient(ellipse at 69% 33%,#0c1d37 0%,transparent 45%)}
 .hero:before{display:none}
-.hero-copy{height:100%;width:min(47%,600px);padding:clamp(60px,10.5vh,120px) 0 40px;display:flex;flex-direction:column;align-items:flex-start}
+.hero-copy{height:auto;min-height:calc(100svh - 78px);width:min(47%,600px);padding:clamp(60px,10.5vh,120px) 0 40px;display:flex;flex-direction:column;align-items:flex-start}
 .hero-greeting{display:flex;align-items:center;gap:15px;color:#2caaff;font:500 16px var(--mono);letter-spacing:.16em}
 .hero-greeting span,.tech-title span{display:block;width:49px;height:2px;background:#2caaff}
 .hero h1{font-size:clamp(58px,6vw,82px);line-height:1;letter-spacing:-.065em;margin:21px 0 22px;font-weight:750;white-space:nowrap}
@@ -39,9 +39,9 @@
 .tech-stack{margin-top:auto;padding-bottom:clamp(32px,6vh,70px)}
 .tech-title{display:flex;align-items:center;gap:18px;font-size:20px;color:#d5e6f9;margin-bottom:25px}
 .tech-title span{width:36px}
-.tech-items{display:flex;align-items:flex-start;gap:clamp(20px,3.7vw,50px)}
-.tech-items>div{display:flex;align-items:center;flex-direction:column;gap:10px;min-width:54px;color:#cfe2f6;font-size:14px;white-space:nowrap}
-.tech-items svg{height:36px;width:36px;color:#19c4e8}
+.tech-items{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));align-items:start;gap:18px 20px;width:min(100%,650px)}
+.tech-items>div{display:flex;align-items:center;flex-direction:column;gap:8px;min-width:0;color:#cfe2f6;font-size:12px;text-align:center;white-space:normal}
+.tech-items svg{height:32px;width:32px;color:#19c4e8}
 .tech-items>div:first-child svg{border:2px solid #71829c;border-radius:50%;padding:5px;color:#f5f8ff}
 .tech-items>div:nth-child(3) svg{background:#268cf0;border-radius:7px;padding:5px;color:#fff}
 .tech-items>div:nth-child(4) svg{color:#28c6e7}
@@ -51,7 +51,7 @@
 .portrait-fade{background:linear-gradient(90deg,var(--bg) 0%,rgba(4,10,20,.1) 42%,transparent 70%),linear-gradient(0deg,var(--bg) 0%,rgba(4,10,20,.2) 19%,transparent 48%),linear-gradient(180deg,rgba(4,10,20,.2),transparent 22%)}
 .hero-copy{z-index:2}
 @media(max-width:900px){.site-header{padding:0 4vw;gap:12px}.nav-links{gap:18px;font-size:13px}.hero.section-wrap{padding:0 5vw}.hero-copy{width:55%}.hero h1{font-size:clamp(53px,7vw,72px)}.hero-actions .button{min-width:140px;height:56px}.hero-socials{gap:10px}.hero-socials a,.hero-socials>span{width:44px;height:44px}.hero-visual{left:31%;width:69%}}
-@media(max-width:640px){.site-header{height:64px;grid-template-columns:1fr auto auto}.wordmark{font-size:17px;gap:8px}.wordmark svg{width:32px;height:32px}.menu-toggle{margin:0 8px 0 0}.theme-toggle{padding:7px 10px;gap:9px;font-size:14px}.nav-links{top:63px;z-index:30}.nav-links a.active:after{display:none}.hero.section-wrap{height:auto;min-height:900px;max-height:none;padding:0 6vw;overflow:hidden}.hero-copy{width:100%;min-height:900px;padding:105px 0 35px}.hero-greeting{font-size:12px}.hero h1{font-size:clamp(48px,12vw,70px);white-space:normal;margin:20px 0}.hero-role{font-size:26px;margin-bottom:18px}.hero-lede{max-width:360px;font-size:15px}.hero-actions{gap:12px;margin-top:24px}.hero-actions .button{min-width:0;height:53px;padding:0 17px;border-radius:15px;font-size:13px}.hero-socials{gap:10px;margin-top:28px}.hero-socials a,.hero-socials>span{width:42px;height:42px;font-size:18px;border-radius:12px}.hero-visual{left:22%;top:290px;width:100%;height:610px;opacity:.67;mask-image:linear-gradient(90deg,transparent 0%,#000 28%)}.portrait-image{object-position:center top}.portrait-fade{background:linear-gradient(90deg,var(--bg) 0%,transparent 66%),linear-gradient(0deg,var(--bg) 0%,transparent 38%)}.tech-stack{position:relative;z-index:3;margin-top:auto;padding-bottom:18px}.tech-title{font-size:16px;margin-bottom:17px}.tech-items{gap:clamp(12px,4vw,24px)}.tech-items>div{font-size:10px;min-width:45px;gap:7px}.tech-items svg{width:29px;height:29px}}
+@media(max-width:640px){.site-header{height:64px;grid-template-columns:1fr auto auto}.wordmark{font-size:17px;gap:8px}.wordmark svg{width:32px;height:32px}.menu-toggle{margin:0 8px 0 0}.theme-toggle{padding:7px 10px;gap:9px;font-size:14px}.nav-links{top:63px;z-index:30}.nav-links a.active:after{display:none}.hero.section-wrap{height:auto;min-height:900px;max-height:none;padding:0 6vw;overflow:hidden}.hero-copy{width:100%;min-height:900px;padding:105px 0 35px}.hero-greeting{font-size:12px}.hero h1{font-size:clamp(48px,12vw,70px);white-space:normal;margin:20px 0}.hero-role{font-size:26px;margin-bottom:18px}.hero-lede{max-width:360px;font-size:15px}.hero-actions{gap:12px;margin-top:24px}.hero-actions .button{min-width:0;height:53px;padding:0 17px;border-radius:15px;font-size:13px}.hero-socials{gap:10px;margin-top:28px}.hero-socials a,.hero-socials>span{width:42px;height:42px;font-size:18px;border-radius:12px}.hero-visual{left:22%;top:290px;width:100%;height:610px;opacity:.67;mask-image:linear-gradient(90deg,transparent 0%,#000 28%)}.portrait-image{object-position:center top}.portrait-fade{background:linear-gradient(90deg,var(--bg) 0%,transparent 66%),linear-gradient(0deg,var(--bg) 0%,transparent 38%)}.tech-stack{position:relative;z-index:3;margin-top:auto;padding-bottom:18px}.tech-title{font-size:16px;margin-bottom:17px}.tech-items{grid-template-columns:repeat(5,minmax(0,1fr));gap:14px 8px}.tech-items>div{font-size:9px;min-width:0;gap:6px}.tech-items svg{width:25px;height:25px}.tech-items svg{width:29px;height:29px}}
 
 
 
