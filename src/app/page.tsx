@@ -52,8 +52,8 @@ export default function Home() {
           <div className="hero-actions"><a className="button button-primary" href="#projects">View My Work <FiArrowRight aria-hidden="true" /></a><a className="button hero-hire" href="#contact">Hire Me</a></div>
           <a className="resume-link" href="#contact"><FiArrowDown aria-hidden="true" /> <span>Resume available on request</span></a>
           <div className="hero-socials" aria-label="Social profiles">
-            <a href="https://instagram.com/" target="_blank" rel="noreferrer" aria-label="Instagram"><FaInstagram /></a>
-            <a href="https://linkedin.com/" target="_blank" rel="noreferrer" aria-label="LinkedIn"><FaLinkedinIn /></a>
+            <span aria-label="Instagram profile not yet provided"><FaInstagram /></span>
+            <span aria-label="LinkedIn profile not yet provided"><FaLinkedinIn /></span>
             <a href="https://github.com/codeswithdark83-sudo" target="_blank" rel="noreferrer" aria-label="GitHub"><FaGithub /></a>
             <a href="#contact" aria-label="WhatsApp contact"><FaWhatsapp /></a>
             <a href="#contact" aria-label="Email contact"><FaEnvelope /></a>
