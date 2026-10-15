@@ -58,6 +58,6 @@
 
 /* Keep the portrait proportional to the hero at desktop and tablet widths. */
 .hero-visual{left:37%;width:63%}
-.portrait-image{object-position:center 28%}
-@media(max-width:900px) and (min-width:641px){.hero-visual{left:34%;width:66%}.portrait-image{object-position:center 27%}}
-@media(max-width:640px){.hero-visual{left:22%;width:100%}.portrait-image{object-position:center top}}
+.portrait-image{object-position:center 28%;transform:scale(.78);transform-origin:right center}
+@media(max-width:900px) and (min-width:641px){.hero-visual{left:34%;width:66%}.portrait-image{object-position:center 27%;transform:scale(.84)}}
+@media(max-width:640px){.hero-visual{left:22%;width:100%}.portrait-image{object-position:center top;transform:none}}
