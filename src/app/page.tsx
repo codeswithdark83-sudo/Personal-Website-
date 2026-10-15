@@ -52,10 +52,10 @@ export default function Home() {
           <div className="hero-actions"><a className="button button-primary" href="#projects">View My Work <FiArrowRight aria-hidden="true" /></a><a className="button hero-hire" href="#contact">Hire Me</a></div>
           <a className="resume-link" href="#contact"><FiArrowDown aria-hidden="true" /> <span>Resume available on request</span></a>
           <div className="hero-socials" aria-label="Social profiles">
-            <span aria-label="Instagram profile not yet provided"><FaInstagram /></span>
-            <span aria-label="LinkedIn profile not yet provided"><FaLinkedinIn /></span>
+            <span role="img" aria-label="Instagram profile not yet provided"><FaInstagram /></span>
+            <span role="img" aria-label="LinkedIn profile not yet provided"><FaLinkedinIn /></span>
             <a href="https://github.com/codeswithdark83-sudo" target="_blank" rel="noreferrer" aria-label="GitHub"><FaGithub /></a>
-            <span aria-label="WhatsApp profile not yet provided"><FaWhatsapp /></span>
+            <span role="img" aria-label="WhatsApp profile not yet provided"><FaWhatsapp /></span>
             <a href="#contact" aria-label="Email contact"><FaEnvelope /></a>
           </div>
           <div className="tech-stack"><div className="tech-title">Tech Stack <span /></div><div className="tech-items">
