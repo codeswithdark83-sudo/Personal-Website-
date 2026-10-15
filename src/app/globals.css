@@ -61,3 +61,33 @@
 .portrait-image{object-position:center 28%;transform:scale(.78);transform-origin:right center}
 @media(max-width:900px) and (min-width:641px){.hero-visual{left:34%;width:66%}.portrait-image{object-position:center 27%;transform:scale(.84)}}
 @media(max-width:640px){.hero-visual{left:22%;width:100%}.portrait-image{object-position:center top;transform:none}}
+
+
+/* About section follows the supplied profile layout. */
+.about-section{padding-top:116px;padding-bottom:104px}
+.about-overview{display:grid;grid-template-columns:1.15fr .85fr;gap:8%;align-items:start;margin-top:44px}
+.about-eyebrow{color:var(--blue2);font-size:14px;font-weight:700;margin-bottom:13px}
+.about-intro h2{font-size:clamp(32px,3.3vw,44px);line-height:1.18;letter-spacing:-.055em;font-weight:650;margin:0 0 20px}
+.about-intro h2 span{color:var(--text)}
+.about-intro>p{font-size:13px;line-height:1.75;color:#9eb1c9;max-width:620px;margin:0}
+.about-workspace{display:block;width:100%;height:auto;aspect-ratio:1.27;object-fit:cover;border:1px solid var(--line);border-radius:11px}
+.about-traits{display:flex;flex-wrap:wrap;gap:9px;margin-top:23px}
+.about-traits>div{display:flex;align-items:center;gap:9px;min-height:40px;padding:0 12px;border:1px solid var(--line);border-radius:7px;background:rgba(12,23,37,.82);color:#c8d8ed;font-size:11px;white-space:nowrap}
+.about-traits svg{width:15px;height:15px;color:var(--blue2)}
+.about-details{display:grid;grid-template-columns:1.15fr .85fr;gap:8%;margin-top:38px;padding-top:31px;border-top:1px solid var(--line)}
+.about-details h3{font-size:16px;font-weight:650;letter-spacing:-.02em;margin:0 0 21px}
+.journey-list{list-style:none;margin:0;padding:0 0 0 25px;border-left:2px solid rgba(54,128,255,.75)}
+.journey-list li{position:relative;padding:0 0 21px 0}
+.journey-list li:last-child{padding-bottom:0}
+.journey-list li:before{content:"";position:absolute;width:11px;height:11px;left:-32px;top:3px;border-radius:50%;background:#4289ff;box-shadow:0 0 12px rgba(66,137,255,.35)}
+.journey-list li>span{font-size:12px;font-weight:650;color:#dce9f8}
+.journey-list p{font-size:11px;line-height:1.7;color:var(--muted);margin:7px 0 0}
+.about-sidebar{padding-left:28px;border-left:1px solid var(--line)}
+.about-education{padding-bottom:22px;border-bottom:1px solid var(--line)}
+.about-education h3,.about-interests h3{margin-bottom:14px}
+.about-education p{font-size:11px;color:var(--muted);margin:0}
+.about-interests{padding-top:22px}
+.interest-tags{display:flex;flex-wrap:wrap;gap:8px}
+.interest-tags span{padding:6px 10px;border:1px solid var(--line);border-radius:999px;background:#0b1523;color:#c0d1e7;font-size:10px}
+@media(max-width:900px){.about-section{padding-top:90px;padding-bottom:86px}.about-overview{grid-template-columns:1.1fr .9fr;gap:5%;margin-top:36px}.about-intro h2{font-size:clamp(30px,4vw,38px)}.about-traits{gap:7px}.about-traits>div{font-size:10px;padding:0 9px}.about-details{gap:5%}}
+@media(max-width:640px){.about-section{padding-top:76px;padding-bottom:76px}.about-overview{grid-template-columns:1fr;gap:24px;margin-top:28px}.about-intro h2{font-size:clamp(32px,9vw,42px)}.about-intro>p{font-size:13px}.about-traits{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:20px}.about-traits>div{min-width:0;white-space:normal;font-size:10px;padding:0 9px}.about-workspace{max-height:300px}.about-details{grid-template-columns:1fr;gap:28px;margin-top:28px;padding-top:25px}.about-sidebar{padding:0;border:0}.about-education{padding-bottom:18px}.about-interests{padding-top:18px}}

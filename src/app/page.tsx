@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import Image from "next/image";
-import { FiArrowDown, FiArrowRight, FiCode, FiLink, FiMoon, FiServer, FiSun } from "react-icons/fi";
+import { FiArrowDown, FiArrowRight, FiBookOpen, FiCheckCircle, FiCode, FiLink, FiMoon, FiServer, FiSun, FiTarget, FiUsers } from "react-icons/fi";
 import { FaCss3Alt, FaEnvelope, FaGithub, FaHtml5, FaInstagram, FaJs, FaLinkedinIn, FaWhatsapp } from "react-icons/fa6";
 import { SiMysql, SiNodedotjs, SiPostgresql, SiReact, SiTypescript } from "react-icons/si";
 
@@ -64,14 +64,43 @@ export default function Home() {
         </div>
         <div className="hero-visual">
           <Image src="/images/jatin-portrait.webp" alt="Jatin Kr. Koli in his development workspace" fill priority sizes="(max-width: 640px) 55vw, 42vw" className="portrait-image" />
-          <div className="portrait-fade" aria-hidden="true" />
+          <div className="portrait-fade" aria-hidd      <section className="intro section-wrap about-section" id="about">
+        <div className="about-overview">
+          <div className="about-intro">
+            <div className="about-eyebrow">About Me</div>
+            <h2>Turning Ideas into<br /><span>Real Web Solutions</span></h2>
+            <p>I’m a passionate full-stack developer who enjoys building modern web applications. I focus on writing clean code, creating great user experiences, and solving real problems with technology.</p>
+            <div className="about-traits" aria-label="How I work">
+              <div><FiTarget aria-hidden="true" /><span>Problem Solver</span></div>
+              <div><FiUsers aria-hidden="true" /><span>Team Player</span></div>
+              <div><FiBookOpen aria-hidden="true" /><span>Continuous Learner</span></div>
+              <div><FiCheckCircle aria-hidden="true" /><span>Clean Code</span></div>
+            </div>
+          </div>
+          <Image className="about-workspace" src="/images/about-workspace.webp" alt="A plant beside a laptop displaying code" width={554} height={436} sizes="(max-width: 640px) 100vw, (max-width: 900px) 42vw, 36vw" />
         </div>
-      </section>
 
-      <section className="intro section-wrap" id="about">
-        <div className="section-kicker"><span>01</span> / A little about me</div>
-        <div className="intro-content"><h2>Good work lives<br />at the intersection of<br /><span>clarity &amp; craft.</span></h2><div className="intro-aside"><p>I enjoy taking an idea from a rough sketch to a finished product—making considered choices along the way, from the smallest interaction to the shape of the system behind it.</p><a href="#contact" className="text-link">More about me <span>↗</span></a></div></div>
-        <div className="principles"><div><span>01</span><b>Thoughtful by default</b><small>Purpose before pixels.</small></div><div><span>02</span><b>Built to last</b><small>Solid foundations, no shortcuts.</small></div><div><span>03</span><b>Always curious</b><small>There’s always more to learn.</small></div></div>
+        <div className="about-details">
+          <section className="about-journey" aria-labelledby="journey-title">
+            <h3 id="journey-title">My Journey</h3>
+            <ol className="journey-list">
+              <li><span>Building now</span><p>Creating modern web applications and exploring new technologies.</p></li>
+              <li><span>Full stack focus</span><p>Learning across frontend, backend, APIs, and databases.</p></li>
+              <li><span>Getting started</span><p>Started with HTML, CSS, and JavaScript, then kept building.</p></li>
+            </ol>
+          </section>
+          <div className="about-sidebar">
+            <section className="about-education" aria-labelledby="education-title">
+              <h3 id="education-title">Education</h3>
+              <p>Education details have not been added yet.</p>
+            </section>
+            <section className="about-interests" aria-labelledby="interests-title">
+              <h3 id="interests-title">Interests</h3>
+              <div className="interest-tags"><span>Web Development</span><span>Technology</span><span>UI/UX</span><span>Photography</span><span>Travel</span></div>
+            </section>
+          </div>
+        </div>
+      </section>to learn.</small></div></div>
       </section>
 
       <section className="work section-wrap" id="projects">
