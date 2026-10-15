@@ -36,7 +36,7 @@
 .hero-socials{display:flex;gap:16px;margin-top:45px}
 .hero-socials a,.hero-socials>span{width:52px;height:52px;border:1px solid rgba(121,158,202,.38);border-radius:14px;display:grid;place-items:center;font-size:23px;color:#eef6ff;transition:border-color .2s,color .2s}
 .hero-socials a:hover{border-color:#299bff;color:#52bdff}
-.tech-stack{margin-top:auto;padding-bottom:clamp(32px,6vh,70px)}
+.tech-stack{margin-top:28px;padding-top:4px;padding-bottom:clamp(32px,6vh,70px)}
 .tech-title{display:flex;align-items:center;gap:18px;font-size:20px;color:#d5e6f9;margin-bottom:25px}
 .tech-title span{width:36px}
 .tech-items{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));align-items:start;gap:18px 20px;width:min(100%,650px)}
