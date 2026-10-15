@@ -21,6 +21,7 @@ const links = ["About", "Projects", "Services", "Journal", "Credentials", "Conta
 
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isLight, setIsLight] = useState(false);
   const [query, setQuery] = useState("");
   const [filter, setFilter] = useState("All work");
   const filtered = useMemo(() => projects.filter((project) =>
@@ -34,6 +35,7 @@ export default function Home() {
       <nav className={menuOpen ? "nav-links nav-open" : "nav-links"} aria-label="Main navigation">
         {links.map((link) => <a key={link} href={`#${link.toLowerCase()}`} onClick={() => setMenuOpen(false)}>{link}</a>)}
       </nav>
+      <button className="theme-toggle" onClick={() => { document.documentElement.dataset.theme = isLight ? "dark" : "light"; setIsLight(!isLight); }} aria-label={`Switch to ${isLight ? "dark" : "light"} theme`}>{isLight ? "Dark" : "Light"}</button>
       <a className="header-cta" href="#contact">Let’s talk <span>↗</span></a>
     </header>
 
