@@ -2,6 +2,8 @@
 
 A responsive portfolio starter based on the supplied dark, blue-accented design reference. The current version is a public-facing Next.js site with working navigation, a dark/light theme switch, project search and filters, service/contact calls to action, metadata, sitemap, and robots rules.
 
+The hero uses a cropped, WebP-optimized portrait from the image you confirmed is you (`public/images/jatin-portrait.webp`).
+
 ## Run locally
 
 Prerequisites: Node.js 20 or newer and npm.
