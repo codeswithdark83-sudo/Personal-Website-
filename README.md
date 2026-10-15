@@ -1,6 +1,6 @@
 # Jatin Kr. Koli — Portfolio
 
-A responsive portfolio starter based on the supplied dark, blue-accented design reference. The current version is a public-facing Next.js site with working navigation, project search and filters, service/contact calls to action, metadata, sitemap, and robots rules.
+A responsive portfolio starter based on the supplied dark, blue-accented design reference. The current version is a public-facing Next.js site with working navigation, a dark/light theme switch, project search and filters, service/contact calls to action, metadata, sitemap, and robots rules.
 
 ## Run locally
 
@@ -27,7 +27,7 @@ No qualifications, employment, testimonials, or performance metrics are claimed 
 
 ## Stack and scripts
 
-- Next.js App Router, React, and strict TypeScript.
+- Next.js 16 App Router, React, and strict TypeScript.
 - CSS is currently kept in one global stylesheet so the supplied visual direction can be tuned without adding a dependency to this empty repository.
 - `npm run dev`, `npm run build`, `npm start`.
 
@@ -43,4 +43,4 @@ Connect the GitHub repository to a Vercel project and use the default Next.js bu
 
 ## Verification report
 
-This repository began empty. `npm run build` completed successfully after dependency installation. A browser-based visual review has not been completed. Supabase, private admin features, transactional email, inquiry submission, and the requested full test suite remain unimplemented and require further development and external configuration.
+This repository began empty. `npm run build` completed successfully with Next.js 16.4.1, and `npm audit` reported zero vulnerabilities. Browser-based visual comparison is blocked because the in-app browser could not reach the local development server. Supabase, private admin features, transactional email, inquiry submission, and the requested full test suite remain unimplemented and require further development and external configuration.
