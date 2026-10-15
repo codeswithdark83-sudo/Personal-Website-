@@ -2,9 +2,9 @@
 
 import { useMemo, useState } from "react";
 import Image from "next/image";
-import { FiArrowDown, FiArrowRight, FiCode, FiMoon, FiSun } from "react-icons/fi";
-import { FaEnvelope, FaGithub, FaInstagram, FaLinkedinIn, FaWhatsapp } from "react-icons/fa6";
-import { SiNextdotjs, SiReact, SiTypescript, SiTailwindcss, SiSupabase } from "react-icons/si";
+import { FiArrowDown, FiArrowRight, FiCode, FiLink, FiMoon, FiServer, FiSun } from "react-icons/fi";
+import { FaCss3Alt, FaEnvelope, FaGithub, FaHtml5, FaInstagram, FaJs, FaLinkedinIn, FaWhatsapp } from "react-icons/fa6";
+import { SiMysql, SiNodedotjs, SiPostgresql, SiReact, SiTypescript } from "react-icons/si";
 
 const projects = [
   { name: "Project one", type: "Web application", stack: ["Next.js", "TypeScript"], status: "Replace with a real project", number: "01" },
@@ -59,7 +59,7 @@ export default function Home() {
             <a href="mailto:codeswithdark83@gmail.com" aria-label="Email contact"><FaEnvelope /></a>
           </div>
           <div className="tech-stack"><div className="tech-title">Tech Stack <span /></div><div className="tech-items">
-            <div><SiNextdotjs /><span>Next.js</span></div><div><SiReact /><span>React</span></div><div><SiTypescript /><span>TypeScript</span></div><div><SiTailwindcss /><span>Tailwind CSS</span></div><div><SiSupabase /><span>Supabase</span></div>
+            <div><FaHtml5 /><span>HTML</span></div><div><FaCss3Alt /><span>CSS</span></div><div><FaJs /><span>JavaScript</span></div><div><SiReact /><span>React.js</span></div><div><SiTypescript /><span>TypeScript</span></div><div><SiNodedotjs /><span>Node.js</span></div><div><FiServer /><span>REST APIs</span></div><div><SiMysql /><span>MySQL</span></div><div><SiPostgresql /><span>PostgreSQL</span></div><div><FiLink /><span>Service Integrations</span></div>
           </div></div>
         </div>
         <div className="hero-visual">
