@@ -2,6 +2,9 @@
 
 import { useMemo, useState } from "react";
 import Image from "next/image";
+import { FiArrowDown, FiArrowRight, FiCode, FiMoon, FiSun } from "react-icons/fi";
+import { FaEnvelope, FaGithub, FaInstagram, FaLinkedinIn, FaWhatsapp } from "react-icons/fa6";
+import { SiNextdotjs, SiReact, SiTypescript, SiTailwindcss, SiSupabase } from "react-icons/si";
 
 const projects = [
   { name: "Project one", type: "Web application", stack: ["Next.js", "TypeScript"], status: "Replace with a real project", number: "01" },
@@ -18,7 +21,7 @@ const services = [
   ["06", "Ongoing support", "Careful updates, fixes, and improvements as your product grows."],
 ];
 
-const links = ["About", "Projects", "Services", "Journal", "Credentials", "Contact"];
+const links = [{ label: "Home", target: "home" }, { label: "About", target: "about" }, { label: "Projects", target: "projects" }, { label: "Services", target: "services" }, { label: "Blog", target: "journal" }, { label: "Contact", target: "contact" }];
 
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -31,29 +34,38 @@ export default function Home() {
 
   return <>
     <header className="site-header">
-      <a className="wordmark" href="#home" aria-label="Jatin Koli home">J<span>.</span> Koli</a>
+      <a className="wordmark" href="#home" aria-label="Jatin Kr. Koli home"><FiCode aria-hidden="true" /><b>Jatin Kr. Koli</b></a>
       <button className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)} aria-expanded={menuOpen} aria-label="Toggle navigation">{menuOpen ? "Close" : "Menu"}</button>
       <nav className={menuOpen ? "nav-links nav-open" : "nav-links"} aria-label="Main navigation">
-        {links.map((link) => <a key={link} href={`#${link.toLowerCase()}`} onClick={() => setMenuOpen(false)}>{link}</a>)}
+        {links.map(({ label, target }, index) => <a className={index === 0 ? "active" : undefined} key={target} href={`#${target}`} onClick={() => setMenuOpen(false)}>{label}</a>)}
       </nav>
-      <button className="theme-toggle" onClick={() => { document.documentElement.dataset.theme = isLight ? "dark" : "light"; setIsLight(!isLight); }} aria-label={`Switch to ${isLight ? "dark" : "light"} theme`}>{isLight ? "Dark" : "Light"}</button>
-      <a className="header-cta" href="#contact">Let’s talk <span>↗</span></a>
+      <button className="theme-toggle" onClick={() => { document.documentElement.dataset.theme = isLight ? "dark" : "light"; setIsLight(!isLight); }} aria-label={`Switch to ${isLight ? "dark" : "light"} theme`}><FiSun aria-hidden="true" /><FiMoon aria-hidden="true" /></button>
     </header>
 
     <main>
       <section className="hero section-wrap" id="home">
         <div className="hero-copy">
-          <div className="eyebrow"><span className="availability-dot" /> Full stack developer <span className="eyebrow-line" /> Availability to confirm</div>
-          <h1>Building for<br /><span>what’s next.</span></h1>
-          <p className="hero-lede">I’m Jatin, a full stack developer turning thoughtful ideas into useful digital experiences.</p>
-          <div className="hero-actions"><a className="button button-primary" href="#projects">Explore my work <span>↘</span></a><a className="text-link" href="#contact">Start a conversation <span>↗</span></a></div>
-          <div className="hero-footnote"><span>01 / 04</span><span className="footnote-rule" /><span>Design-minded · Detail-driven · Always learning</span></div>
+          <div className="hero-greeting">HELLO, I’M <span /></div>
+          <h1>Jatin <span>Kr. Koli</span></h1>
+          <h2 className="hero-role">Full Stack Developer</h2>
+          <p className="hero-lede">I build modern, scalable and user-friendly web applications. Passionate about clean code, great user experiences, and turning ideas into reality.</p>
+          <div className="hero-actions"><a className="button button-primary" href="#projects">View My Work <FiArrowRight aria-hidden="true" /></a><a className="button hero-hire" href="#contact">Hire Me</a></div>
+          <a className="resume-link" href="#contact"><FiArrowDown aria-hidden="true" /> <span>Resume available on request</span></a>
+          <div className="hero-socials" aria-label="Social profiles">
+            <a href="https://instagram.com/" target="_blank" rel="noreferrer" aria-label="Instagram"><FaInstagram /></a>
+            <a href="https://linkedin.com/" target="_blank" rel="noreferrer" aria-label="LinkedIn"><FaLinkedinIn /></a>
+            <a href="https://github.com/codeswithdark83-sudo" target="_blank" rel="noreferrer" aria-label="GitHub"><FaGithub /></a>
+            <a href="#contact" aria-label="WhatsApp contact"><FaWhatsapp /></a>
+            <a href="#contact" aria-label="Email contact"><FaEnvelope /></a>
+          </div>
+          <div className="tech-stack"><div className="tech-title">Tech Stack <span /></div><div className="tech-items">
+            <div><SiNextdotjs /><span>Next.js</span></div><div><SiReact /><span>React</span></div><div><SiTypescript /><span>TypeScript</span></div><div><SiTailwindcss /><span>Tailwind CSS</span></div><div><SiSupabase /><span>Supabase</span></div>
+          </div></div>
         </div>
         <div className="hero-visual">
           <Image src="/images/jatin-portrait.webp" alt="Jatin Kr. Koli in his development workspace" fill priority sizes="(max-width: 640px) 55vw, 42vw" className="portrait-image" />
           <div className="portrait-fade" aria-hidden="true" />
         </div>
-        <div className="hero-bottom"><span>Scroll to explore</span><span className="scroll-line" /><span>01—06</span></div>
       </section>
 
       <section className="intro section-wrap" id="about">
@@ -89,3 +101,4 @@ export default function Home() {
     <footer className="site-footer"><a className="wordmark" href="#home">J<span>.</span> Koli</a><span>Thoughtfully built, one detail at a time.</span><a href="#home">Back to top ↑</a><small>© 2026 Jatin Kr. Koli</small></footer>
   </>;
 }
+
