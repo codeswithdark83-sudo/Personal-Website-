@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import Image from "next/image";
 
 const projects = [
   { name: "Project one", type: "Web application", stack: ["Next.js", "TypeScript"], status: "Replace with a real project", number: "01" },
@@ -48,11 +49,9 @@ export default function Home() {
           <div className="hero-actions"><a className="button button-primary" href="#projects">Explore my work <span>↘</span></a><a className="text-link" href="#contact">Start a conversation <span>↗</span></a></div>
           <div className="hero-footnote"><span>01 / 04</span><span className="footnote-rule" /><span>Design-minded · Detail-driven · Always learning</span></div>
         </div>
-        <div className="hero-visual" aria-label="Abstract blue light on a dark background" role="img">
-          <div className="visual-orbit orbit-one" /><div className="visual-orbit orbit-two" />
-          <div className="visual-monogram">JK<span>.</span></div>
-          <div className="visual-caption"><span>FULL STACK</span><span>DEVELOPER</span></div>
-          <div className="visual-index">IN · 2026</div>
+        <div className="hero-visual">
+          <Image src="/images/jatin-portrait.webp" alt="Jatin Kr. Koli in his development workspace" fill priority sizes="(max-width: 640px) 55vw, 42vw" className="portrait-image" />
+          <div className="portrait-fade" aria-hidden="true" />
         </div>
         <div className="hero-bottom"><span>Scroll to explore</span><span className="scroll-line" /><span>01—06</span></div>
       </section>
