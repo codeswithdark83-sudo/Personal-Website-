@@ -2,7 +2,7 @@
 
 **Findings**
 - [P1] Visual comparison could not be completed. The in-app browser returned `net::ERR_CONNECTION_TIMED_OUT` for `http://localhost:3000` and timed out on the local network address. The source image is available in the conversation, but an implementation screenshot could not be captured, so typography, spacing, color, image fidelity, copy, responsiveness, and interaction states cannot be evaluated from rendered evidence.
-- [P1] The reference includes individual portrait and product imagery. The implementation currently uses text and CSS-built dashboard previews instead of matching source assets. Replace these with real, verified personal/project images before claiming visual fidelity.
+- [P1] The confirmed portrait is now cropped into the hero, but the project cards still show CSS-built sample dashboards instead of verified project imagery. Replace those with real project assets before claiming visual fidelity.
 - [P1] The requested full product is not complete. Supabase CMS/admin, private inquiry CRM, server-validated inquiry handling, email delivery, media management, and automated tests are not implemented. See README for the current scope and required setup.
 
 **Open Questions**
@@ -18,13 +18,12 @@
 **Follow-up Polish**
 - Recheck light-theme contrast and mobile navigation after rendered browser capture.
 
-Source visual truth: conversation attachment `Dark Neon Developer Portfolio UI Collage.png`.
+Source visual truth: conversation attachment `Dark Portfolio Hero with Developer Portrait.png`.
 Implementation screenshot: unavailable; browser navigation to the local implementation timed out.
 Viewport: reference is a multi-panel desktop collage; implementation capture unavailable.
 State: dark theme, default page state; runtime interaction state could not be inspected.
 Full-view comparison evidence: unavailable because no implementation screenshot could be captured.
 Focused-region comparison evidence: unavailable for the same reason.
-Comparison history: no visual iterations; build configuration and CSS compatibility warnings were fixed based on build output, not visual comparison.
+Comparison history: the hero portrait was added and the production build passed; visual comparison is still unavailable because the in-app browser cannot reach the local server.
 
 final result: blocked
-
