@@ -8,7 +8,6 @@ Prerequisites: Node.js 20 or newer and npm.
 
 ```bash
 npm install
-cp .env.example .env.local
 npm run dev
 ```
 
