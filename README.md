@@ -11,13 +11,14 @@ Public pages read **published** content from Supabase; a private admin area (ema
 - **Responsive** — layouts tested for horizontal overflow at 320, 375, 768, 1024 and 1440 px on every public route. Mobile navigation, 44 px touch targets, `prefers-reduced-motion` respected.
 - **Dark / light theme** with persistence, no flash on load.
 - **Supabase schema + row-level security** (`supabase/migrations/`) — 17 tables, public/private storage buckets, admin allowlist. Anonymous visitors can read only published content.
+- **Admin editors** — projects (with case study sections, technologies, cover upload, publish/draft), services, skills/experience/education/certifications, blog, profile and contact settings. Every action re-checks admin rights on the server.
 - **Admin login & dashboard** — `/admin/login`, session refresh in `src/proxy.ts`, server-side `requireAdmin()` on every admin page, and a dashboard with live counts. Sign-out works.
 - **Safe content rendering** — Markdown without raw HTML; validated uploads (file-signature check, size limits, SVG rejected); open-redirect protection; Zod schemas for all content types.
 - **Graceful fallback** — without Supabase env vars the site renders clearly-labelled placeholder content and your real contact links.
 
 ## Not built yet
 
-- Admin **content editors** (projects, case studies, services, credentials, blog, media library, site settings). Content currently has to be edited in the Supabase dashboard.
+- Admin media library, drag-to-reorder (use the Sort order field), and live draft preview. Admin editors compile and pass type checks but have **not** been exercised against a live database.
 - **Project inquiry wizard**, inquiry API, email notifications (Resend) and the inquiry CRM. The Contact page is a heading only; do not treat it as a working inquiry flow.
 - Playwright end-to-end tests, analytics, structured data (JSON-LD), social preview images.
 - A strong shared rate limiter (the current one is per server instance — see Security notes).

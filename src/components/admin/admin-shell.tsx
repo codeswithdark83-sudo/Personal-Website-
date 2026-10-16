@@ -3,11 +3,18 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { LayoutDashboard, LogOut, Menu, X } from "lucide-react";
+import { Award, FolderKanban, LayoutDashboard, LogOut, Menu, Newspaper, Settings, Wrench, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 // Add an entry here when an admin section ships; nothing links to pages that don't exist yet.
-const nav = [{ href: "/admin", label: "Dashboard", icon: LayoutDashboard }] as const;
+const nav = [
+  { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/admin/projects", label: "Projects", icon: FolderKanban },
+  { href: "/admin/services", label: "Services", icon: Wrench },
+  { href: "/admin/credentials", label: "Credentials", icon: Award },
+  { href: "/admin/blog", label: "Blog", icon: Newspaper },
+  { href: "/admin/settings", label: "Profile & contact", icon: Settings },
+] as const;
 
 export function AdminShell({ email, signOut, children }: { email: string; signOut: () => Promise<void>; children: React.ReactNode }) {
   const pathname = usePathname();
