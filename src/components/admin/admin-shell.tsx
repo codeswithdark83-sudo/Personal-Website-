@@ -3,12 +3,13 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Award, FolderKanban, LayoutDashboard, LogOut, Menu, Newspaper, Settings, Wrench, X } from "lucide-react";
+import { Award, FolderKanban, Inbox, LayoutDashboard, LogOut, Menu, Newspaper, Settings, Wrench, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 // Add an entry here when an admin section ships; nothing links to pages that don't exist yet.
 const nav = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/admin/inquiries", label: "Inquiries", icon: Inbox },
   { href: "/admin/projects", label: "Projects", icon: FolderKanban },
   { href: "/admin/services", label: "Services", icon: Wrench },
   { href: "/admin/credentials", label: "Credentials", icon: Award },

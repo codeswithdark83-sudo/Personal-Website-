@@ -15,4 +15,4 @@ Last updated with the merged full-stack branch.
 
 **Open items**
 - Project cards still show placeholder artwork until real screenshots are uploaded.
-- Contact page has no inquiry form yet (Phase 5).
+- Inquiry wizard checked at 375 px (no overflow); not checked on other devices.

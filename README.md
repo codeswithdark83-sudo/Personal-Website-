@@ -7,11 +7,12 @@ Public pages read **published** content from Supabase; a private admin area (ema
 
 ## What works today
 
-- **Public site** — Home, About, Projects (search / category / technology filters), project case-study pages with table of contents, Services, Credentials (tabs), Blog (search / categories), Contact (placeholder heading only), Privacy, 404/error/loading states, sitemap and robots.
+- **Public site** — Home, About, Projects (search / category / technology filters), project case-study pages with table of contents, Services, Credentials (tabs), Blog (search / categories), Contact (4-step inquiry form), Privacy, 404/error/loading states, sitemap and robots.
 - **Responsive** — layouts tested for horizontal overflow at 320, 375, 768, 1024 and 1440 px on every public route. Mobile navigation, 44 px touch targets, `prefers-reduced-motion` respected.
 - **Dark / light theme** with persistence, no flash on load.
 - **Supabase schema + row-level security** (`supabase/migrations/`) — 17 tables, public/private storage buckets, admin allowlist. Anonymous visitors can read only published content.
 - **Admin editors** — projects (with case study sections, technologies, cover upload, publish/draft), services, skills/experience/education/certifications, blog, profile and contact settings. Every action re-checks admin rights on the server.
+- **Inquiry system** — 4-step wizard on /contact → `POST /api/inquiries` (validation, honeypot, rate limit, service-role insert, optional Resend email that never loses the saved inquiry). Admin inbox with search, status filter, sorting, pagination, notes, follow-up date and CSV export (formula-injection safe). **Saving needs `SUPABASE_SERVICE_ROLE_KEY`; without it the form shows a friendly 'not available, use email/WhatsApp' message.** Verified locally only up to that point; saving to the database and sending email have not been tested.
 - **Admin login & dashboard** — `/admin/login`, session refresh in `src/proxy.ts`, server-side `requireAdmin()` on every admin page, and a dashboard with live counts. Sign-out works.
 - **Safe content rendering** — Markdown without raw HTML; validated uploads (file-signature check, size limits, SVG rejected); open-redirect protection; Zod schemas for all content types.
 - **Graceful fallback** — without Supabase env vars the site renders clearly-labelled placeholder content and your real contact links.
@@ -19,7 +20,6 @@ Public pages read **published** content from Supabase; a private admin area (ema
 ## Not built yet
 
 - Admin media library, drag-to-reorder (use the Sort order field), and live draft preview. Admin editors compile and pass type checks but have **not** been exercised against a live database.
-- **Project inquiry wizard**, inquiry API, email notifications (Resend) and the inquiry CRM. The Contact page is a heading only; do not treat it as a working inquiry flow.
 - Playwright end-to-end tests, analytics, structured data (JSON-LD), social preview images.
 - A strong shared rate limiter (the current one is per server instance — see Security notes).
 
@@ -42,8 +42,8 @@ Scripts: `dev`, `build`, `start`, `lint`, `typecheck`, `test` (Vitest), `test:e2
 | `NEXT_PUBLIC_SITE_URL` | your production origin | canonical URLs, sitemap (required in production) |
 | `NEXT_PUBLIC_SUPABASE_URL` | Supabase → Project Settings → API | reading content, admin login |
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | the *publishable* (`sb_publishable_…`) or legacy anon key — browser-safe | reading content, admin login |
-| `SUPABASE_SERVICE_ROLE_KEY` | Supabase → API (secret). **Server only** | saving public inquiries (not built yet) |
-| `RESEND_API_KEY`, `CONTACT_FROM_EMAIL`, `CONTACT_TO_EMAIL` | Resend dashboard | inquiry emails (not built yet) |
+| `SUPABASE_SERVICE_ROLE_KEY` | Supabase → API (secret). **Server only** | saving public inquiries |
+| `RESEND_API_KEY`, `CONTACT_FROM_EMAIL`, `CONTACT_TO_EMAIL` | Resend dashboard | inquiry emails (optional) |
 
 Never prefix a secret with `NEXT_PUBLIC_`. Never commit `.env.local`.
 
@@ -92,7 +92,7 @@ Backups: enable Supabase backups (Pro plan) or schedule `pg_dump`; restore by re
 
 ## Tests
 
-`npm test` runs Vitest unit tests (content mapping, validation schemas, upload checks, redirect safety). Last run: 21 passing. These do **not** cover Supabase itself or the admin UI against a live database.
+`npm test` runs Vitest unit tests (content mapping, validation schemas, upload checks, redirect safety). Last run: 26 passing. These do **not** cover Supabase itself or the admin UI against a live database.
 
 ## Troubleshooting
 
