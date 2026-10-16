@@ -64,7 +64,11 @@ export default function Home() {
         </div>
         <div className="hero-visual">
           <Image src="/images/jatin-portrait.webp" alt="Jatin Kr. Koli in his development workspace" fill priority sizes="(max-width: 640px) 55vw, 42vw" className="portrait-image" />
-          <div className="portrait-fade" aria-hidd      <section className="intro section-wrap about-section" id="about">
+          <div className="portrait-fade" aria-hidden="true" />
+        </div>
+      </section>
+
+      <section className="intro section-wrap about-section" id="about">
         <div className="about-overview">
           <div className="about-intro">
             <div className="about-eyebrow">About Me</div>
@@ -100,7 +104,6 @@ export default function Home() {
             </section>
           </div>
         </div>
-      </section>to learn.</small></div></div>
       </section>
 
       <section className="work section-wrap" id="projects">
