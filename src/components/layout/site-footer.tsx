@@ -17,6 +17,7 @@ export function SiteFooter() {
               </li>
             ))}
             <li><Link href="/privacy" className="inline-block py-1 hover:text-foreground">Privacy</Link></li>
+            <li><Link href="/admin" className="inline-block py-1 hover:text-foreground">Admin</Link></li>
           </ul>
         </nav>
       </div>
