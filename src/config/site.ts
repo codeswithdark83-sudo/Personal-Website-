@@ -6,6 +6,7 @@ export const siteConfig = {
   description:
     "Portfolio of Jatin Kr. Koli, a full stack developer building modern, scalable and user-friendly web applications.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
+  coffeeUrl: "https://buymeacoffee.com/codeswithdb",
 } as const;
 
 export const navLinks = [

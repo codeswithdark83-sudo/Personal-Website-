@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ArrowUpRight, Mail } from "lucide-react";
+import { CoffeeButton } from "@/components/ui/coffee-button";
 import { PageHeader } from "@/components/layout/page-header";
 import { InquiryWizard } from "@/components/contact/inquiry-wizard";
 import { GithubIcon, InstagramIcon, LinkedinIcon, WhatsappIcon } from "@/components/ui/brand-icons";
@@ -44,6 +45,7 @@ export default async function ContactPage() {
           <p className="mb-5 text-sm text-muted">Fill out the form below and I&apos;ll get back to you as soon as possible.</p>
           <InquiryWizard />
         </section>
+        <p className="flex flex-col items-center gap-3 text-center text-sm text-muted">Enjoying my work? You can support it with a coffee.<CoffeeButton /></p>
       </div>
     </>
   );
