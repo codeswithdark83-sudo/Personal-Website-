@@ -1,16 +1,35 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
+import localFont from "next/font/local";
+import { ThemeProvider } from "next-themes";
+import { siteConfig } from "@/config/site";
 import "./globals.css";
 
-const origin = process.env.NEXT_PUBLIC_SITE_URL || (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000");
+// Self-hosted variable fonts (via @fontsource-variable) so builds never depend on Google Fonts.
+const inter = localFont({ src: "../fonts/inter-latin-wght-normal.woff2", variable: "--font-inter", display: "swap", weight: "100 900" });
+const grotesk = localFont({ src: "../fonts/space-grotesk-latin-wght-normal.woff2", variable: "--font-space-grotesk", display: "swap", weight: "300 700" });
+const mono = localFont({ src: "../fonts/jetbrains-mono-latin-wght-normal.woff2", variable: "--font-jetbrains-mono", display: "swap", weight: "100 800" });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(origin),
-  title: { default: "Jatin Kr. Koli — Full Stack Developer", template: "%s | Jatin Kr. Koli" },
-  description: "Portfolio of Jatin Kr. Koli, a full stack developer building thoughtful digital experiences.",
-  openGraph: { title: "Jatin Kr. Koli — Full Stack Developer", description: "Thoughtful digital experiences, built end to end.", type: "website" },
-  robots: { index: true, follow: true },
+  metadataBase: new URL(siteConfig.url),
+  title: { default: `${siteConfig.name} — ${siteConfig.headline}`, template: `%s | ${siteConfig.name}` },
+  description: siteConfig.description,
+  openGraph: { type: "website", siteName: siteConfig.name, title: siteConfig.name, description: siteConfig.description },
 };
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="en"><body>{children}</body></html>;
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#0b0d12",
+};
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en" suppressHydrationWarning className={`${inter.variable} ${grotesk.variable} ${mono.variable}`}>
+      <body className="min-h-dvh antialiased">
+        <ThemeProvider attribute="class" defaultTheme="dark" themes={["dark", "light"]} enableSystem={false} disableTransitionOnChange>
+          {children}
+        </ThemeProvider>
+      </body>
+    </html>
+  );
 }

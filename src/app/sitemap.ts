@@ -1,6 +1,13 @@
 import type { MetadataRoute } from "next";
+import { siteConfig } from "@/config/site";
+import { getPosts, getProjects } from "@/lib/content";
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  const base = process.env.NEXT_PUBLIC_SITE_URL || (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000");
-  return [{ url: base, lastModified: new Date(), changeFrequency: "monthly", priority: 1 }];
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const [projects, posts] = await Promise.all([getProjects(), getPosts()]);
+  const staticPaths = ["", "/about", "/projects", "/services", "/credentials", "/blog", "/contact", "/privacy"];
+  return [
+    ...staticPaths.map((p) => ({ url: `${siteConfig.url}${p}` })),
+    ...projects.map((p) => ({ url: `${siteConfig.url}/projects/${p.slug}` })),
+    ...posts.map((p) => ({ url: `${siteConfig.url}/blog/${p.slug}` })),
+  ];
 }
