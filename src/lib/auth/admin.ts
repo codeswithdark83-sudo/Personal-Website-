@@ -7,7 +7,11 @@ import { createServerSupabase } from "@/lib/supabase/server";
  * `getUser()` validates the JWT with Supabase (unlike `getSession()`, which trusts the cookie).
  * Use at the top of every admin page and every server action.
  */
+const configured = () => !!process.env.NEXT_PUBLIC_SUPABASE_URL && !!process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
 export async function requireAdmin() {
+  // Without Supabase configured there is no way to sign in, so send visitors to the login page (which says so).
+  if (!configured()) redirect("/admin/login");
   const supabase = await createServerSupabase();
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) redirect("/admin/login");
@@ -21,6 +25,7 @@ export async function requireAdmin() {
 
 /** Same check for server actions that must return an error object instead of redirecting. */
 export async function getAdminOrNull() {
+  if (!configured()) return null;
   const supabase = await createServerSupabase();
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) return null;
