@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { navLinks, siteConfig } from "@/config/site";
+import { CoffeeButton } from "@/components/ui/coffee-button";
 import { Logo } from "@/components/ui/logo";
 
 export function SiteFooter() {
@@ -9,6 +10,7 @@ export function SiteFooter() {
         <div className="max-w-sm">
           <p className="flex items-center gap-2.5 font-display text-lg font-semibold"><Logo size={32} />{siteConfig.name}</p>
           <p className="mt-2 text-sm text-muted">{siteConfig.headline}. Built with Next.js, Supabase and Tailwind CSS.</p>
+          <CoffeeButton className="mt-4" />
         </div>
         <nav aria-label="Footer">
           <ul className="grid grid-cols-2 gap-x-10 gap-y-2 text-sm text-muted sm:grid-cols-3">
