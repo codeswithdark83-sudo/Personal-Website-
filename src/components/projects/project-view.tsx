@@ -1,7 +1,6 @@
 import { ArrowLeft, ExternalLink } from "lucide-react";
-import { Breadcrumbs } from "@/components/layout/breadcrumbs";
+import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
-import { ButtonLink } from "@/components/ui/button";
 import { GithubIcon } from "@/components/ui/brand-icons";
 import { Markdown } from "@/components/ui/markdown";
 import { ProjectThumb } from "./project-thumb";
@@ -13,7 +12,7 @@ import type { Project } from "@/types/content";
 export function ProjectView({ project, related = [], preview = false }: { project: Project; related?: Project[]; preview?: boolean }) {
   return (
     <article className="container-page py-8 sm:py-12">
-      {!preview && <Breadcrumbs items={[{ label: "Projects", href: "/projects" }, { label: project.title }]} />}
+      {!preview && <Link href="/projects" className="inline-flex min-h-11 items-center gap-2 text-sm text-accent hover:underline"><ArrowLeft className="size-4" aria-hidden />Back to Projects</Link>}
       <header className="mt-6 grid gap-8 lg:grid-cols-2 lg:items-center">
         <div>
           <h1 className="text-3xl font-semibold sm:text-5xl">{project.title}</h1>
@@ -30,6 +29,12 @@ export function ProjectView({ project, related = [], preview = false }: { projec
         </div>
         <ProjectThumb title={project.title} coverUrl={project.coverUrl} placeholder={project.isPlaceholder} />
       </header>
+
+      <dl className="mt-8 grid gap-3 sm:grid-cols-3">
+        {([["Project type", project.projectType], ["Timeline", project.timeline], ["My role", project.role]] as const).filter(([, v]) => v).map(([k, v]) => (
+          <div key={k} className="rounded-xl border border-border bg-surface p-4"><dt className="text-xs text-muted">{k}</dt><dd className="mt-1 text-sm font-medium">{v}</dd></div>
+        ))}
+      </dl>
 
       {project.isPlaceholder && (
         <p role="note" className="mt-8 rounded-lg border border-warning/40 bg-warning/10 p-3 text-sm">This is a sample entry. Replace it with a real project from the admin dashboard.</p>
@@ -64,7 +69,7 @@ export function ProjectView({ project, related = [], preview = false }: { projec
           <ul className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">{related.map((p) => <li key={p.slug}><ProjectCard project={p} /></li>)}</ul>
         </section>
       )}
-      {!preview && <><div className="mt-10"><ButtonLink href="/projects" variant="ghost"><ArrowLeft className="size-4" aria-hidden />Back to projects</ButtonLink></div><ContactCTA /></>}
+      {!preview && <div className="mt-12"><ContactCTA /></div>}
     </article>
   );
 }

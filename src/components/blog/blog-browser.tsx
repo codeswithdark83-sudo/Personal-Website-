@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
-import { Search } from "lucide-react";
+import { ArrowRight, Search } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import type { BlogPost } from "@/types/content";
 
@@ -33,11 +33,14 @@ export function BlogBrowser({ posts }: { posts: BlogPost[] }) {
         <ul className="mt-6 grid gap-4">
           {visible.map((p) => (
             <li key={p.slug}>
-              <article className="relative rounded-xl border border-border bg-surface p-5 transition-colors hover:border-accent/60 sm:p-6">
+              <article className="relative flex items-center justify-between gap-4 rounded-xl border border-border bg-surface p-5 transition-colors hover:border-accent/60 sm:p-6">
+                <div className="min-w-0">
                 <Badge>{p.category}</Badge>
                 <h2 className="mt-3 text-lg font-semibold sm:text-xl"><Link href={`/blog/${p.slug}`} className="after:absolute after:inset-0">{p.title}</Link></h2>
                 <p className="mt-1 text-sm text-muted">{p.excerpt}</p>
                 <p className="mt-3 text-xs text-muted"><time dateTime={p.publishedAt}>{new Date(p.publishedAt).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" })}</time> · {p.readingMinutes} min read</p>
+                </div>
+                <ArrowRight className="size-5 shrink-0 text-accent" aria-hidden />
               </article>
             </li>
           ))}

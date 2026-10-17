@@ -5,12 +5,8 @@ import type { BlogPost, Project, Service, SkillGroup, TimelineEntry, SectionBloc
 const TODO = "Sample text — replace this section with your real content in the admin dashboard.";
 
 const caseTitles = [
-  "Project overview", "Project type and timeline", "Problem statement", "Goals and requirements",
-  "Intended users", "My role and responsibilities", "Planning and design decisions",
-  "Technical stack and reasoning", "System architecture", "Database design and relationships",
-  "APIs and integrations", "Main features", "Implementation process", "Technical challenges",
-  "Solutions and trade-offs", "Testing and quality assurance", "Deployment", "Verified results",
-  "Lessons learned", "Future improvements",
+  "Project overview", "Problem statement", "Goals and requirements", "Tech stack", "Architecture",
+  "Database design", "Implementation", "Results", "Future improvements",
 ];
 
 const slugify = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
