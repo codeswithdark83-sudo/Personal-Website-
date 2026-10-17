@@ -15,12 +15,13 @@ export default async function EditProjectPage({ params }: { params: Promise<{ id
 
   const p = isNew ? null : (await supabase.from("projects").select("*").eq("id", id).limit(1)).data?.[0] ?? null;
   if (!isNew && !p) notFound();
-  const cs = p ? (await supabase.from("case_studies").select("*").eq("project_id", p.id).limit(1)).data?.[0] ?? null : null;
-  let techs: string[] = [];
-  if (p) {
-    const links = (await supabase.from("project_technologies").select("technology_id").eq("project_id", p.id)).data ?? [];
-    if (links.length) techs = ((await supabase.from("technologies").select("name").in("id", links.map((l) => l.technology_id))).data ?? []).map((t) => t.name);
-  }
+  // Independent lookups run together; only the technology names depend on the link rows.
+  const [csRes, linksRes] = p
+    ? await Promise.all([supabase.from("case_studies").select("*").eq("project_id", p.id).limit(1), supabase.from("project_technologies").select("technology_id").eq("project_id", p.id)])
+    : [null, null];
+  const cs = csRes?.data?.[0] ?? null;
+  const links = linksRes?.data ?? [];
+  const techs: string[] = links.length ? ((await supabase.from("technologies").select("name").in("id", links.map((l) => l.technology_id))).data ?? []).map((t) => t.name) : [];
   const blocks = Array.isArray(cs?.content_blocks) ? (cs!.content_blocks as { id?: string; title: string; body: string }[]) : [];
   const coverUrl = p?.cover_image_path ? supabase.storage.from("public-assets").getPublicUrl(p.cover_image_path).data.publicUrl : null;
 

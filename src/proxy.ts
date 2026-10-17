@@ -23,9 +23,10 @@ export async function proxy(request: NextRequest) {
     },
   });
 
-  const { data } = await supabase.auth.getUser();
+  // getClaims() checks the token signature without a network round trip when possible and refreshes expired sessions.
+  const { data } = await supabase.auth.getClaims();
   const isLogin = request.nextUrl.pathname === "/admin/login";
-  if (!data.user && !isLogin) {
+  if (!data?.claims && !isLogin) {
     const redirect = NextResponse.redirect(new URL("/admin/login", request.url));
     response.cookies.getAll().forEach((c) => redirect.cookies.set(c));
     return redirect;
