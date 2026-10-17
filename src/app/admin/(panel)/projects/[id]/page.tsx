@@ -29,7 +29,7 @@ export default async function EditProjectPage({ params }: { params: Promise<{ id
       <div>
         <Link href="/admin/projects" className="text-sm text-muted hover:text-foreground">← All projects</Link>
         <h1 className="mt-2 text-2xl font-semibold sm:text-3xl">{p ? p.title : "New project"}</h1>
-        {p?.status === "published" && <Link href={`/projects/${p.slug}`} target="_blank" className="mt-1 inline-block text-sm text-accent">View live page ↗</Link>}
+        {p && <div className="mt-1 flex flex-wrap gap-4 text-sm"><Link href={`/admin/preview/projects/${p.id}`} className="text-accent">Preview</Link>{p.status === "published" && <Link href={`/projects/${p.slug}`} target="_blank" className="text-accent">View live page ↗</Link>}</div>}
       </div>
 
       <ActionForm action={saveProjectAction} className="space-y-8">

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Award, FolderKanban, Inbox, LayoutDashboard, LogOut, Menu, Newspaper, Settings, Wrench, X } from "lucide-react";
+import { Award, FolderKanban, Inbox, ImageIcon, LayoutDashboard, LogOut, Menu, Newspaper, Settings, Wrench, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 // Add an entry here when an admin section ships; nothing links to pages that don't exist yet.
@@ -14,6 +14,7 @@ const nav = [
   { href: "/admin/services", label: "Services", icon: Wrench },
   { href: "/admin/credentials", label: "Credentials", icon: Award },
   { href: "/admin/blog", label: "Blog", icon: Newspaper },
+  { href: "/admin/media", label: "Media", icon: ImageIcon },
   { href: "/admin/settings", label: "Profile & contact", icon: Settings },
 ] as const;
 
