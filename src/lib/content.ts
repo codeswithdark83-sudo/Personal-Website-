@@ -5,7 +5,7 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { createPublicClient, publicAssetUrl } from "@/lib/supabase/public";
 import {
-  placeholderEducation, placeholderJourney, placeholderPosts, placeholderProjects,
+  fallbackExperience, placeholderEducation, placeholderJourney, placeholderPosts, placeholderProjects,
   placeholderServices, placeholderSkills,
 } from "@/lib/placeholder-content";
 import type { Database, Json } from "@/types/database";
@@ -109,7 +109,7 @@ export async function getEducation(): Promise<TimelineEntry[]> {
 
 export async function getExperience(): Promise<TimelineEntry[]> {
   const c = db();
-  if (!c) return [];
+  if (!c) return fallbackExperience;
   const rows = must(await c.from("experiences").select("*").eq("visible", true).order("sort_order"), "experience");
   return rows.map((e) => ({ title: e.role, subtitle: e.organization, period: period(e.start_date, e.end_date), description: e.description ?? undefined, url: e.url ?? undefined }));
 }
