@@ -23,7 +23,7 @@ export default async function EditProjectPage({ params }: { params: Promise<{ id
   const links = linksRes?.data ?? [];
   const techs: string[] = links.length ? ((await supabase.from("technologies").select("name").in("id", links.map((l) => l.technology_id))).data ?? []).map((t) => t.name) : [];
   const blocks = Array.isArray(cs?.content_blocks) ? (cs!.content_blocks as { id?: string; title: string; body: string }[]) : [];
-  const coverUrl = p?.cover_image_path ? supabase.storage.from("public-assets").getPublicUrl(p.cover_image_path).data.publicUrl : null;
+  const coverUrl = p?.cover_image_path?.startsWith("/") ? p.cover_image_path : p?.cover_image_path ? supabase.storage.from("public-assets").getPublicUrl(p.cover_image_path).data.publicUrl : null;
 
   return (
     <div className="space-y-6">

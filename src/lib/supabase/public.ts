@@ -13,6 +13,7 @@ export function createPublicClient() {
 }
 
 export function publicAssetUrl(path: string | null | undefined): string | undefined {
+  if (path?.startsWith("/")) return path; // bundled image under /public, e.g. /images/projects/x.webp
   const env = getPublicSupabaseEnv();
   if (!path || !env) return undefined;
   return `${env.url}/storage/v1/object/public/public-assets/${path.split("/").map(encodeURIComponent).join("/")}`;
