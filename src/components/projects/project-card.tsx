@@ -10,7 +10,7 @@ export function ProjectCard({ project }: { project: Project }) {
       <ProjectThumb title={project.title} coverUrl={project.coverUrl} placeholder={project.isPlaceholder} />
       <div className="flex flex-1 flex-col">
         <h3 className="text-lg font-semibold">
-          <Link href={`/projects/${project.slug}`} className="after:absolute after:inset-0 relative">{project.title}</Link>
+          <Link href={`/projects/${project.slug}`} className="after:absolute after:inset-0">{project.title}</Link>
         </h3>
         <p className="mt-1 text-sm text-muted">{project.summary}</p>
         <ul className="mt-3 flex flex-wrap gap-1.5" aria-label="Technologies">
