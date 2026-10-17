@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { Menu, X } from "lucide-react";
 import { navLinks, siteConfig } from "@/config/site";
+import { Logo } from "@/components/ui/logo";
 import { ThemeToggle } from "./theme-toggle";
 import { cn } from "@/lib/utils";
 
@@ -29,7 +30,8 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 border-b border-border/70 bg-background/80 backdrop-blur-md">
       <div className="container-page flex h-16 items-center justify-between gap-4">
-        <Link href="/" className="font-display text-base font-semibold tracking-tight sm:text-lg">
+        <Link href="/" className="flex items-center gap-2.5 font-display text-base font-semibold tracking-tight sm:text-lg">
+          <Logo size={32} />
           {siteConfig.name}
         </Link>
 

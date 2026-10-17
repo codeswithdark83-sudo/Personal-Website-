@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
-import { Lock } from "lucide-react";
 import { isSupabaseConfigured } from "@/lib/supabase/env";
+import { Logo } from "@/components/ui/logo";
 import { createServerSupabase } from "@/lib/supabase/server";
 import { LoginForm } from "./login-form";
 
@@ -24,7 +24,7 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
   return (
     <main className="grid min-h-dvh place-items-center bg-background px-4 py-10">
       <div className="w-full max-w-sm rounded-2xl border border-border bg-surface p-6 sm:p-8">
-        <span className="flex size-11 items-center justify-center rounded-lg bg-accent-strong/15 text-accent"><Lock className="size-5" aria-hidden /></span>
+        <Logo size={44} />
         <h1 className="mt-4 text-2xl font-semibold">Admin sign in</h1>
         <p className="mt-1 mb-6 text-sm text-muted">Private area for managing the portfolio.</p>
         {error === "forbidden" && <p role="alert" className="mb-4 rounded-lg border border-danger/40 bg-danger/10 p-3 text-sm">That account is not authorised for the admin area.</p>}
