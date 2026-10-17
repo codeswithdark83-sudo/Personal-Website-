@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Award, FolderKanban, Inbox, ImageIcon, LayoutDashboard, LogOut, Menu, Newspaper, Settings, Wrench, X } from "lucide-react";
+import { Logo } from "@/components/ui/logo";
 import { cn } from "@/lib/utils";
 
 // Add an entry here when an admin section ships; nothing links to pages that don't exist yet.
@@ -44,7 +45,7 @@ export function AdminShell({ email, signOut, children }: { email: string; signOu
   return (
     <div className="min-h-dvh lg:grid lg:grid-cols-[15rem_1fr]">
       <aside className="hidden border-r border-border bg-surface/40 p-4 lg:block">
-        <p className="px-3 py-2 font-display text-base font-semibold">Admin</p>
+        <p className="flex items-center gap-2.5 px-3 py-2 font-display text-base font-semibold"><Logo size={28} />Admin</p>
         <nav aria-label="Admin">{links}</nav>
       </aside>
 

@@ -1,12 +1,13 @@
 import Link from "next/link";
 import { navLinks, siteConfig } from "@/config/site";
+import { Logo } from "@/components/ui/logo";
 
 export function SiteFooter() {
   return (
     <footer className="mt-24 border-t border-border bg-surface/40">
       <div className="container-page flex flex-col gap-8 py-10 md:flex-row md:items-start md:justify-between">
         <div className="max-w-sm">
-          <p className="font-display text-lg font-semibold">{siteConfig.name}</p>
+          <p className="flex items-center gap-2.5 font-display text-lg font-semibold"><Logo size={32} />{siteConfig.name}</p>
           <p className="mt-2 text-sm text-muted">{siteConfig.headline}. Built with Next.js, Supabase and Tailwind CSS.</p>
         </div>
         <nav aria-label="Footer">
