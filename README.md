@@ -13,13 +13,14 @@ Public pages read **published** content from Supabase; a private admin area (ema
 - **Supabase schema + row-level security** (`supabase/migrations/`) — 17 tables, public/private storage buckets, admin allowlist. Anonymous visitors can read only published content.
 - **Admin editors** — projects (with case study sections, technologies, cover upload, publish/draft), services, skills/experience/education/certifications, blog, profile and contact settings. Every action re-checks admin rights on the server.
 - **Inquiry system** — 4-step wizard on /contact → `POST /api/inquiries` (validation, honeypot, rate limit, service-role insert, optional Resend email that never loses the saved inquiry). Admin inbox with search, status filter, sorting, pagination, notes, follow-up date and CSV export (formula-injection safe). **Saving needs `SUPABASE_SERVICE_ROLE_KEY`; without it the form shows a friendly 'not available, use email/WhatsApp' message.** Verified locally only up to that point; saving to the database and sending email have not been tested.
+- **Admin media library and draft previews** — upload images/PDFs, copy public links, delete; preview unpublished projects and articles before publishing.
 - **Admin login & dashboard** — `/admin/login`, session refresh in `src/proxy.ts`, server-side `requireAdmin()` on every admin page, and a dashboard with live counts. Sign-out works.
 - **Safe content rendering** — Markdown without raw HTML; validated uploads (file-signature check, size limits, SVG rejected); open-redirect protection; Zod schemas for all content types.
 - **Graceful fallback** — without Supabase env vars the site renders clearly-labelled placeholder content and your real contact links.
 
 ## Not built yet
 
-- Admin media library, drag-to-reorder (use the Sort order field), and live draft preview. Admin editors compile and pass type checks but have **not** been exercised against a live database.
+- Drag-to-reorder (use the Sort order field). Admin screens (media library, draft previews, dashboard) compile and pass type checks but have **not** been exercised against a live database.
 - Playwright end-to-end tests, analytics, structured data (JSON-LD), social preview images.
 - A strong shared rate limiter (the current one is per server instance — see Security notes).
 
