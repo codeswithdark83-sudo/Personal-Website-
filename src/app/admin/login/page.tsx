@@ -18,8 +18,8 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
     );
   }
   const supabase = await createServerSupabase();
-  const { data: { user } } = await supabase.auth.getUser();
-  if (user && (await supabase.rpc("is_admin")).data) redirect("/admin");
+  const { data } = await supabase.auth.getClaims();
+  if (data?.claims && (await supabase.rpc("is_admin")).data) redirect("/admin");
 
   return (
     <main className="grid min-h-dvh place-items-center bg-background px-4 py-10">

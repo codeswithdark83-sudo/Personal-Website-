@@ -91,6 +91,10 @@ Backups: enable Supabase backups (Pro plan) or schedule `pg_dump`; restore by re
 - The login rate limiter is in-memory per server instance, so on serverless hosting it only slows bursts. For stronger protection add Vercel's WAF rate limiting or a shared store (e.g. Upstash Redis).
 - The service-role key bypasses RLS: use it only in vetted server code.
 
+## Performance
+
+The admin area talks to Supabase on every request, so run the Vercel functions in the same region as your database. `vercel.json` pins them to Mumbai (`bom1`) to match a Supabase `ap-south-1` project; change it if your database is elsewhere. Public pages are static and cached, so they are unaffected.
+
 ## Tests
 
 `npm test` runs Vitest unit tests (content mapping, validation schemas, upload checks, redirect safety). Last run: 26 passing. These do **not** cover Supabase itself or the admin UI against a live database.
