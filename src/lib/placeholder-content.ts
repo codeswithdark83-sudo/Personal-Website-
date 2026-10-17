@@ -38,8 +38,13 @@ export const placeholderSkills: SkillGroup[] = [
   { category: "Tools & Others", skills: ["Git", "GitHub", "Docker", "VS Code", "Vercel", "Figma"] },
 ];
 
+// Owner-supplied (not placeholders): shown until the database is configured.
 export const placeholderEducation: TimelineEntry[] = [
-  { title: "Your Degree / Qualification", subtitle: "Your Institution", period: "Year – Year", description: "Add your verified education details in the admin dashboard." },
+  { title: "Bachelor's in Computer Application (BCA)", subtitle: "", period: "2024 – 2027" },
+];
+
+export const fallbackExperience: TimelineEntry[] = [
+  { title: "Full-Stack Engineer", subtitle: "Versatile (clothing brand)", period: "", description: "Freelance engagement. Project completed in 3 months." },
 ];
 
 export const placeholderJourney: TimelineEntry[] = [
