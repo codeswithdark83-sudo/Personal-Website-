@@ -129,6 +129,16 @@ h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: -0.02em; text
 .nav-link::after { content: ""; position: absolute; left: 0; right: 0; bottom: 6px; height: 2px; border-radius: 2px; background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform 0.3s ease; }
 .nav-link:hover::after, .nav-link[aria-current="page"]::after { transform: scaleX(1); }
 
+/* Every box on the public pages glows under the pointer, with a soft spotlight that follows it. */
+main#main :is([class*="rounded-lg"], [class*="rounded-xl"], [class*="rounded-2xl"])[class*="border"]:not(input, select, textarea, img, svg) {
+  transition: box-shadow 0.3s ease, border-color 0.3s ease, background-color 0.3s ease, transform 0.3s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+main#main :is([class*="rounded-lg"], [class*="rounded-xl"], [class*="rounded-2xl"])[class*="border"]:not(input, select, textarea, img, svg):hover {
+  border-color: color-mix(in srgb, var(--accent) 60%, var(--border));
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 28%, transparent), 0 0 30px -4px color-mix(in srgb, var(--accent-strong) 55%, transparent);
+  background-image: radial-gradient(240px circle at var(--mx, 50%) var(--my, 50%), color-mix(in srgb, var(--accent) 16%, transparent), transparent 70%);
+}
+
 /* Scroll-driven effects. Pure CSS; browsers without support simply show everything. */
 @supports (animation-timeline: view()) {
   main#main section:not(.glow),
