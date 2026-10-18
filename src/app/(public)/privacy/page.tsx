@@ -10,7 +10,7 @@ const sections = [
   ["Where it is stored", "Inquiries are stored in a private database that only the site owner can access, and may be forwarded to the owner by email."],
   ["Retention", "Inquiries are kept only as long as needed to handle the conversation. [Owner: confirm your retention period.]"],
   ["Your rights", "You can ask to see, correct or delete your information at any time by contacting me."],
-  ["Analytics", "If analytics is enabled it is configured to be privacy-conscious. [Owner: name the provider you use.]"],
+  ["Analytics", "Visit statistics (page views, referrers, device and country) are collected with Vercel Web Analytics, which does not use cookies and does not track you across other sites."],
 ];
 
 export default function PrivacyPage() {
