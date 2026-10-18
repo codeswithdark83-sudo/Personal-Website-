@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { PageHeader } from "@/components/layout/page-header";
 import { CredentialsTabs } from "@/components/credentials/credentials-tabs";
 import { getCertifications, getEducation, getExperience, getSkills } from "@/lib/content";
 
-export const metadata: Metadata = { title: "Credentials", description: "Skills, education, certifications and experience.", alternates: { canonical: "/credentials" } };
+export const metadata: Metadata = pageMetadata({ title: "Credentials", description: "Skills, education, certifications and experience.", path: "/credentials" });
 
 // Public content is cached and refreshed at most every 5 minutes; admin edits also revalidate on demand.
 export const revalidate = 300;

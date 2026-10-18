@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { Check } from "lucide-react";
 import { PageHeader } from "@/components/layout/page-header";
 import { Card } from "@/components/ui/card";
@@ -6,7 +7,7 @@ import { ServiceIcon } from "@/components/services/service-icon";
 import { ContactCTA } from "@/components/home/contact-cta";
 import { getServices } from "@/lib/content";
 
-export const metadata: Metadata = { title: "Services", description: "Web development services for businesses and individuals.", alternates: { canonical: "/services" } };
+export const metadata: Metadata = pageMetadata({ title: "Services", description: "Web development services for businesses and individuals.", path: "/services" });
 
 // Public content is cached and refreshed at most every 5 minutes; admin edits also revalidate on demand.
 export const revalidate = 300;

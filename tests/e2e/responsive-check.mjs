@@ -4,7 +4,7 @@ import { chromium } from "playwright";
 const base = process.env.BASE ?? "http://localhost:3100";
 const out = process.env.OUT;
 const routes = ["/", "/about", "/projects", "/projects/taskflow", "/services", "/credentials", "/blog", "/blog/sample-article", "/contact", "/privacy", "/does-not-exist"];
-const sizes = [[320, 640], [375, 812], [768, 1024], [1024, 768], [1440, 900]];
+const sizes = [[320, 640], [375, 812], [667, 375], [768, 1024], [1024, 768], [1440, 900], [1920, 1080]];
 
 const browser = await chromium.launch({ executablePath: "/opt/pw-browsers/chromium" }).catch(() => chromium.launch());
 let bad = 0;

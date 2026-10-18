@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { PageHeader } from "@/components/layout/page-header";
 
-export const metadata: Metadata = { title: "Privacy", description: "How personal information submitted through this site is handled.", alternates: { canonical: "/privacy" } };
+export const metadata: Metadata = pageMetadata({ title: "Privacy", description: "How personal information submitted through this site is handled.", path: "/privacy" });
 
 const sections = [
   ["What I collect", "When you submit the project inquiry form I collect the details you enter: name, email, optional company, project details, budget and timeline, and preferred contact method."],
