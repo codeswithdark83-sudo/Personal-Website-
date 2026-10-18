@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { PageHeader } from "@/components/layout/page-header";
 import { BlogBrowser } from "@/components/blog/blog-browser";
 import { getPosts } from "@/lib/content";
 
-export const metadata: Metadata = { title: "Blog", description: "Tech insights, development tips and thoughts on web development.", alternates: { canonical: "/blog" } };
+export const metadata: Metadata = pageMetadata({ title: "Blog", description: "Tech insights, development tips and thoughts on web development.", path: "/blog" });
 
 // Public content is cached and refreshed at most every 5 minutes; admin edits also revalidate on demand.
 export const revalidate = 300;

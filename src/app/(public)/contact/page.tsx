@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { ArrowUpRight, Mail } from "lucide-react";
 import { CoffeeButton } from "@/components/ui/coffee-button";
 import { PageHeader } from "@/components/layout/page-header";
@@ -6,7 +7,7 @@ import { InquiryWizard } from "@/components/contact/inquiry-wizard";
 import { GithubIcon, InstagramIcon, LinkedinIcon, WhatsappIcon } from "@/components/ui/brand-icons";
 import { getContactSettings, getSocialLinks } from "@/lib/content";
 
-export const metadata: Metadata = { title: "Contact", description: "Tell me about your project and I will get back to you.", alternates: { canonical: "/contact" } };
+export const metadata: Metadata = pageMetadata({ title: "Contact", description: "Tell me about your project and I will get back to you.", path: "/contact" });
 export const revalidate = 300;
 
 const channels = {

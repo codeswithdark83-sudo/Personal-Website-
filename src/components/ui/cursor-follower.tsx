@@ -21,12 +21,14 @@ export function CursorFollower() {
       rx += (x - rx) * 0.18;
       ry += (y - ry) * 0.18;
       if (ring.current) ring.current.style.transform = `translate3d(${rx}px, ${ry}px, 0)`;
-      frame = requestAnimationFrame(loop);
+      // Stop animating once the ring has caught up, so an idle page costs nothing.
+      frame = Math.abs(x - rx) + Math.abs(y - ry) < 0.1 ? 0 : requestAnimationFrame(loop);
     };
     const move = (e: PointerEvent) => {
       x = e.clientX; y = e.clientY;
       if (dot.current) dot.current.style.transform = `translate3d(${x}px, ${y}px, 0)`;
-      if (!started) { started = true; rx = x; ry = y; root.classList.add("cursor-on"); frame = requestAnimationFrame(loop); }
+      if (!started) { started = true; rx = x; ry = y; root.classList.add("cursor-on"); }
+      if (!frame) frame = requestAnimationFrame(loop);
       const over = (e.target as Element | null)?.closest?.(INTERACTIVE);
       ring.current?.setAttribute("data-hover", over ? "true" : "false");
     };

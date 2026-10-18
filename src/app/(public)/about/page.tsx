@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import Image from "next/image";
 import { BookOpen, Code2, Puzzle, Users } from "lucide-react";
 import { SectionHeading } from "@/components/ui/section-heading";
@@ -8,7 +9,7 @@ import { Card } from "@/components/ui/card";
 import { ButtonLink } from "@/components/ui/button";
 import { getAbout, getEducation, getJourney, getProfile } from "@/lib/content";
 
-export const metadata: Metadata = { title: "About", description: "Background, journey and working principles.", alternates: { canonical: "/about" } };
+export const metadata: Metadata = pageMetadata({ title: "About", description: "Background, journey and working principles.", path: "/about" });
 
 const principles = [["Problem Solver", Puzzle], ["Team Player", Users], ["Continuous Learner", BookOpen], ["Clean Code", Code2]] as const;
 const interests = ["Web Development", "Technology", "UI/UX", "Photography", "Travel"];
