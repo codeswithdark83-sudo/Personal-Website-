@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/next";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { CursorFollower } from "@/components/ui/cursor-follower";
@@ -13,6 +14,8 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
       <SiteHeader />
       <main id="main" className="min-h-[70dvh]">{children}</main>
       <SiteFooter />
+      {/* Vercel Web Analytics: page views only; the admin area is deliberately not tracked. */}
+      <Analytics />
     </>
   );
 }
