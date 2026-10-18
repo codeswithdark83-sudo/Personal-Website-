@@ -96,3 +96,51 @@ h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: -0.02em; text
 @utility glow {
   background-image: radial-gradient(60% 50% at 80% 0%, color-mix(in srgb, var(--accent-strong) 22%, transparent), transparent 70%);
 }
+
+/* ---------- Motion ---------- */
+@keyframes rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+@keyframes page-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+@keyframes float-y { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+@keyframes glow-pulse { 0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent-strong) 0%, transparent); } 50% { box-shadow: 0 0 48px 4px color-mix(in srgb, var(--accent-strong) 35%, transparent); } }
+@keyframes drift { 0%, 100% { background-position: 80% 0%; } 50% { background-position: 60% 20%; } }
+@keyframes bar-grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes reveal-up { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: none; } }
+
+.rise { animation: rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both; animation-delay: var(--d, 0ms); }
+.page-enter { animation: page-in 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+.float-y { animation: float-y 6s ease-in-out infinite; }
+.glow-pulse { animation: glow-pulse 5s ease-in-out infinite; }
+.glow { background-size: 140% 140%; animation: drift 14s ease-in-out infinite; }
+
+/* Hover polish: cards lift, links in the header get a sliding underline. */
+.lift { transition: transform 0.3s cubic-bezier(0.2, 0.7, 0.2, 1), border-color 0.3s, box-shadow 0.3s; }
+.lift:hover { transform: translateY(-4px); box-shadow: 0 16px 40px -18px color-mix(in srgb, var(--accent-strong) 60%, transparent); }
+.nav-link { position: relative; }
+.nav-link::after { content: ""; position: absolute; left: 0; right: 0; bottom: 6px; height: 2px; border-radius: 2px; background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform 0.3s ease; }
+.nav-link:hover::after, .nav-link[aria-current="page"]::after { transform: scaleX(1); }
+
+/* Scroll-driven effects. Pure CSS; browsers without support simply show everything. */
+@supports (animation-timeline: view()) {
+  main#main section:not(.glow),
+  main#main ul.grid > li {
+    animation: reveal-up linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 40%;
+  }
+  .scroll-progress { animation: bar-grow linear both; animation-timeline: scroll(root); }
+}
+.scroll-progress { position: fixed; inset: 0 0 auto 0; height: 3px; z-index: 60; transform-origin: left; transform: scaleX(0); background: linear-gradient(90deg, #22d3ee, var(--accent-strong), #8b5cf6); pointer-events: none; }
+@supports not (animation-timeline: scroll()) { .scroll-progress { display: none; } }
+
+/* Cursor follower: only on devices with a real pointer. */
+.cursor-dot, .cursor-ring { position: fixed; left: 0; top: 0; z-index: 9999; pointer-events: none; border-radius: 9999px; opacity: 0; will-change: transform; transition: opacity 0.25s ease; }
+.cursor-dot { width: 8px; height: 8px; margin: -4px 0 0 -4px; background: var(--accent); }
+.cursor-ring { width: 36px; height: 36px; margin: -18px 0 0 -18px; border: 1.5px solid color-mix(in srgb, var(--accent) 70%, transparent); transition: opacity 0.25s ease, width 0.25s ease, height 0.25s ease, margin 0.25s ease, background-color 0.25s ease; }
+.cursor-ring[data-hover="true"] { width: 60px; height: 60px; margin: -30px 0 0 -30px; background: color-mix(in srgb, var(--accent) 14%, transparent); }
+.cursor-ring[data-down="true"] { width: 26px; height: 26px; margin: -13px 0 0 -13px; }
+.cursor-on .cursor-dot, .cursor-on .cursor-ring { opacity: 1; }
+@media (pointer: coarse), (hover: none) { .cursor-dot, .cursor-ring { display: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .cursor-dot, .cursor-ring, .scroll-progress { display: none; }
+  .float-y, .glow-pulse, .glow { animation: none; }
+}
