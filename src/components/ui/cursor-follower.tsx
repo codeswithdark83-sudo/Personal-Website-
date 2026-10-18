@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 
+const BOX = 'main [class*="rounded-lg"][class*="border"], main [class*="rounded-xl"][class*="border"], main [class*="rounded-2xl"][class*="border"]';
 const INTERACTIVE = "a, button, summary, label, select, input, textarea, [role='button'], [role='tab']";
 
 /** A small dot that tracks the pointer plus a ring that trails it. The system cursor stays visible. */
@@ -31,6 +32,14 @@ export function CursorFollower() {
       if (!frame) frame = requestAnimationFrame(loop);
       const over = (e.target as Element | null)?.closest?.(INTERACTIVE);
       ring.current?.setAttribute("data-hover", over ? "true" : "false");
+      // Tell the hovered box (and any box around it) where the pointer is, so its glow follows.
+      let box = (e.target as Element | null)?.closest?.(BOX) as HTMLElement | null | undefined;
+      while (box) {
+        const r = box.getBoundingClientRect();
+        box.style.setProperty("--mx", `${e.clientX - r.left}px`);
+        box.style.setProperty("--my", `${e.clientY - r.top}px`);
+        box = box.parentElement?.closest(BOX) as HTMLElement | null;
+      }
     };
     const down = () => ring.current?.setAttribute("data-down", "true");
     const up = () => ring.current?.setAttribute("data-down", "false");
