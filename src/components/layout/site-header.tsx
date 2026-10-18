@@ -43,7 +43,7 @@ export function SiteHeader() {
                   href={l.href}
                   aria-current={isActive(l.href) ? "page" : undefined}
                   className={cn(
-                    "rounded-md px-3 py-2 text-sm transition-colors",
+                    "nav-link rounded-md px-3 py-2 text-sm transition-colors",
                     isActive(l.href) ? "text-accent" : "text-muted hover:text-foreground",
                   )}
                 >

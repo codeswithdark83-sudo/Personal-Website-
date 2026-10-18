@@ -6,7 +6,7 @@ import type { Project } from "@/types/content";
 
 export function ProjectCard({ project }: { project: Project }) {
   return (
-    <article className="group relative flex h-full flex-col gap-4 rounded-xl border border-border bg-surface p-4 transition-colors hover:border-accent/60">
+    <article className="lift group relative flex h-full flex-col gap-4 rounded-xl border border-border bg-surface p-4 hover:border-accent/60">
       <ProjectThumb title={project.title} coverUrl={project.coverUrl} placeholder={project.isPlaceholder} />
       <div className="flex flex-1 flex-col">
         <h3 className="text-lg font-semibold">
