@@ -143,19 +143,19 @@ export default async function DashboardPage({ searchParams }: { searchParams: Pr
       <div className="grid gap-4 xl:grid-cols-[1.25fr_1.25fr_0.8fr]">
         <Card title="Recent Projects" action={<ViewAll href="/admin/projects" />}>
           {!P.length ? <p className="py-6 text-sm text-muted">No projects yet.</p> : (
-            <div className="overflow-x-auto"><table className="w-full min-w-[26rem] text-left text-sm">
+            <div className="overflow-x-auto"><table className="w-full text-left text-sm">
               <thead className="text-xs text-muted"><tr><th className="py-2 pr-3 font-medium">Title</th><th className="py-2 pr-3 font-medium">Status</th><th className="py-2 font-medium">Updated</th></tr></thead>
               <tbody className="divide-y divide-border">
                 {P.slice(0, 5).map((p) => {
                   const cover = publicAssetUrl(p.cover_image_path);
                   return (
                     <tr key={p.id}>
-                      <td className="py-2.5 pr-3"><Link href={`/admin/projects/${p.id}`} className="flex items-center gap-3 hover:text-accent">
+                      <td className="w-full max-w-0 py-2.5 pr-3"><Link href={`/admin/projects/${p.id}`} className="flex min-w-0 items-center gap-3 hover:text-accent">
                         {cover ? <Image src={cover} alt="" width={36} height={36} className="size-9 shrink-0 rounded-md object-cover" /> : <span className="grid size-9 shrink-0 place-items-center rounded-md bg-elevated text-xs font-semibold text-muted">{p.title.slice(0, 1)}</span>}
                         <span className="min-w-0"><span className="block truncate font-medium">{p.title}</span><span className="block truncate text-xs text-muted">{p.project_type}</span></span>
                       </Link></td>
                       <td className="py-2.5 pr-3"><span className={cn("rounded-md px-2 py-1 text-xs", p.status === "published" ? "bg-success/15 text-success" : "bg-warning/20 text-warning")}>{pretty(p.status)}</span></td>
-                      <td className="whitespace-nowrap py-2.5 text-xs text-muted">{shortDate(p.updated_at)}</td>
+                      <td className="whitespace-nowrap py-2.5 pl-2 text-xs text-muted">{shortDate(p.updated_at)}</td>
                     </tr>
                   );
                 })}
@@ -166,13 +166,13 @@ export default async function DashboardPage({ searchParams }: { searchParams: Pr
 
         <Card title="Recent Inquiries" action={<ViewAll href="/admin/inquiries" />}>
           {!I.length ? <p className="py-6 text-sm text-muted">No inquiries yet. New messages from the contact form appear here.</p> : (
-            <div className="overflow-x-auto"><table className="w-full min-w-[28rem] text-left text-sm">
-              <thead className="text-xs text-muted"><tr><th className="py-2 pr-3 font-medium">Name</th><th className="py-2 pr-3 font-medium">Project type</th><th className="py-2 pr-3 font-medium">Status</th><th className="py-2 font-medium">Date</th></tr></thead>
+            <div className="overflow-x-auto"><table className="w-full text-left text-sm">
+              <thead className="text-xs text-muted"><tr><th className="py-2 pr-3 font-medium">Name</th><th className="hidden sm:table-cell xl:hidden 2xl:table-cell py-2 pr-3 font-medium">Project type</th><th className="py-2 pr-3 font-medium">Status</th><th className="py-2 font-medium">Date</th></tr></thead>
               <tbody className="divide-y divide-border">
                 {I.slice(0, 5).map((r) => (
                   <tr key={r.id}>
                     <td className="py-2.5 pr-3"><Link href={`/admin/inquiries/${r.id}`} className="font-medium hover:text-accent">{r.name}</Link></td>
-                    <td className="max-w-[9rem] truncate py-2.5 pr-3 text-muted">{r.project_type}</td>
+                    <td className="hidden sm:table-cell xl:hidden 2xl:table-cell max-w-[9rem] truncate py-2.5 pr-3 text-muted">{r.project_type}</td>
                     <td className="py-2.5 pr-3"><span className={cn("whitespace-nowrap rounded-md px-2 py-1 text-xs", BADGE[r.status])}>{pretty(r.status)}</span></td>
                     <td className="whitespace-nowrap py-2.5 text-xs text-muted">{shortDate(r.created_at)}</td>
                   </tr>
