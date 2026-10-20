@@ -3,69 +3,83 @@
 import { useMemo, useRef } from "react";
 import * as THREE from "three";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { mergeGeometries } from "three/examples/jsm/utils/BufferGeometryUtils.js";
 import { usePointerRef } from "./use-3d";
 
-const S = 2.2; // logo size in world units
-const R = 27; // stroke radius, in the 512-unit logo grid
-const P = (x: number, y: number) => new THREE.Vector3((x - 256) / 512 * S, -(y - 256) / 512 * S, 0);
-const stroke = (curve: THREE.Curve<THREE.Vector3>) => new THREE.TubeGeometry(curve, 48, (R / 512) * S, 20, false);
-const cap = (x: number, y: number) => new THREE.SphereGeometry((R / 512) * S, 20, 16).translate(...P(x, y).toArray());
-const line = (a: [number, number], b: [number, number]) => new THREE.LineCurve3(P(...a), P(...b));
+type Pointer = React.RefObject<{ x: number; y: number }>;
+type ShapeSpec = { kind: "knot" | "ico" | "ring" | "octa" | "wire" | "cube"; x: number; y: number; z: number; size: number; color: string; spin: number; depth: number; mobile?: boolean };
 
-/** The JK monogram from the site logo, rebuilt as a solid 3D shape with the cyan → blue → violet gradient. */
-function buildLogo() {
-  const stem = new THREE.CurvePath<THREE.Vector3>();
-  stem.add(line([262, 92], [262, 324]));
-  stem.add(new THREE.CubicBezierCurve3(P(262, 324), P(262, 382), P(226, 416), P(176, 416)));
-  stem.add(new THREE.CubicBezierCurve3(P(176, 416), P(140, 416), P(116, 400), P(102, 372)));
-  const parts = [
-    stroke(stem), cap(262, 92), cap(102, 372),
-    stroke(line([262, 272], [396, 98])), cap(262, 272), cap(396, 98),
-    stroke(line([316, 200], [402, 414])), cap(316, 200), cap(402, 414),
-  ].map((g) => (g.index ? g.toNonIndexed() : g));
-  const geo = mergeGeometries(parts, false)!;
-  const pos = geo.attributes.position;
-  if (!pos) throw new Error("logo geometry has no positions");
-  const c = new THREE.Color();
-  const cyan = new THREE.Color("#22d3ee"), blue = new THREE.Color("#5b8cff"), violet = new THREE.Color("#8b5cf6");
-  const colors = new Float32Array(pos.count * 3);
-  for (let i = 0; i < pos.count; i++) {
-    const t = THREE.MathUtils.clamp((pos.getX(i) / S + 0.5 + (0.5 - (pos.getY(i) / S + 0.5)) * 0.6) / 1.3, 0, 1);
-    if (t < 0.5) c.copy(cyan).lerp(blue, t * 2); else c.copy(blue).lerp(violet, (t - 0.5) * 2);
-    colors.set([c.r, c.g, c.b], i * 3);
+// Positions are fractions of the visible width/height. Most sit on the right, behind and around the portrait; text stays clear.
+const SPECS: ShapeSpec[] = [
+  { kind: "ring", x: 0.30, y: 0.02, z: -1.2, size: 1.55, color: "#5b8cff", spin: 0.25, depth: 0.5, mobile: true },
+  { kind: "knot", x: 0.41, y: 0.28, z: -0.4, size: 0.5, color: "#8b5cf6", spin: 0.5, depth: 1.0, mobile: true },
+  { kind: "ico", x: 0.40, y: -0.31, z: -0.6, size: 0.55, color: "#22d3ee", spin: 0.4, depth: 0.9, mobile: true },
+  { kind: "octa", x: 0.17, y: 0.38, z: -2.0, size: 0.42, color: "#5b8cff", spin: 0.6, depth: 0.7 },
+  { kind: "cube", x: -0.02, y: -0.37, z: -2.4, size: 0.4, color: "#8b5cf6", spin: 0.45, depth: 0.6 },
+  { kind: "wire", x: -0.5, y: 0.36, z: -3.2, size: 0.6, color: "#22d3ee", spin: 0.18, depth: 0.4 },
+  { kind: "wire", x: 0.12, y: 0.00, z: -4.2, size: 1.7, color: "#5b8cff", spin: 0.1, depth: 0.25 },
+];
+
+// Phones: the photo sits at the top, so shapes are placed in pixels from the top-centre and kept clear of the text below.
+type PhoneSpec = { kind: ShapeSpec["kind"]; dx: number; top: number; r: number; color: string; spin: number; depth: number; z: number };
+const PHONE_SPECS: PhoneSpec[] = [
+  { kind: "ring", dx: 0, top: 150, r: 128, color: "#5b8cff", spin: 0.25, depth: 0.4, z: -1.2 },
+  { kind: "knot", dx: 150, top: 108, r: 24, color: "#8b5cf6", spin: 0.5, depth: 0.9, z: -0.4 },
+  { kind: "ico", dx: -150, top: 246, r: 24, color: "#22d3ee", spin: 0.4, depth: 0.8, z: -0.6 },
+];
+
+function ShapeGeometry({ kind }: { kind: ShapeSpec["kind"] }) {
+  switch (kind) {
+    case "knot": return <torusKnotGeometry args={[1, 0.32, 140, 18]} />;
+    case "ico": return <icosahedronGeometry args={[1, 0]} />;
+    case "ring": return <torusGeometry args={[1, 0.035, 20, 120]} />;
+    case "octa": return <octahedronGeometry args={[1, 0]} />;
+    case "cube": return <boxGeometry args={[1.3, 1.3, 1.3]} />;
+    default: return <icosahedronGeometry args={[1, 1]} />;
   }
-  geo.setAttribute("color", new THREE.BufferAttribute(colors, 3));
-  geo.center();
-  return geo;
 }
 
-function Logo({ pointer }: { pointer: React.RefObject<{ x: number; y: number }> }) {
-  const group = useRef<THREE.Group>(null);
-  const geometry = useMemo(() => buildLogo(), []);
-  const { viewport } = useThree();
-  const wide = viewport.width / viewport.height > 1.25;
-  // Sit near the portrait: right-hand side on wide screens, upper right on phones.
-  const base = useMemo(() => new THREE.Vector3(wide ? viewport.width * 0.365 : viewport.width * 0.27, wide ? viewport.height * 0.33 : viewport.height * 0.36, 0), [wide, viewport.width, viewport.height]);
-  const scale = Math.min(viewport.width, viewport.height) * (wide ? 0.31 : 0.22);
+type Placed = { kind: ShapeSpec["kind"]; bx: number; by: number; z: number; size: number; color: string; spin: number; depth: number };
+
+/** One floating, slowly spinning 3D shape that drifts with the pointer (nearer shapes move more). */
+function Shape({ p, pointer }: { p: Placed; pointer: Pointer }) {
+  const ref = useRef<THREE.Mesh>(null);
 
   useFrame(({ clock }, dt) => {
-    const g = group.current;
-    if (!g) return;
+    const m = ref.current;
+    if (!m) return;
     const t = clock.elapsedTime;
-    const k = 1 - Math.exp(-dt * 4);
-    g.rotation.y += ((pointer.current.x * 0.9 + Math.sin(t * 0.6) * 0.35) - g.rotation.y) * k;
-    g.rotation.x += ((pointer.current.y * 0.5 + Math.cos(t * 0.5) * 0.12) - g.rotation.x) * k;
-    g.position.set(base.x + pointer.current.x * 0.12, base.y + Math.sin(t * 1.1) * 0.12 - pointer.current.y * 0.08, 0);
+    m.rotation.x += dt * p.spin * 0.7;
+    m.rotation.y += dt * p.spin;
+    const k = 1 - Math.exp(-dt * 3);
+    const tx = p.bx + pointer.current.x * 0.35 * p.depth;
+    const ty = p.by + Math.sin(t * 0.8 + p.bx * 3) * 0.1 - pointer.current.y * 0.25 * p.depth;
+    m.position.x += (tx - m.position.x) * k;
+    m.position.y += (ty - m.position.y) * k;
   });
 
+  const wire = p.kind === "wire";
   return (
-    <group ref={group} scale={scale / S}>
-      <mesh geometry={geometry}>
-        <meshPhysicalMaterial vertexColors metalness={0.35} roughness={0.28} clearcoat={1} clearcoatRoughness={0.15} emissive="#1d3b8f" emissiveIntensity={0.35} />
-      </mesh>
-    </group>
+    <mesh ref={ref} scale={p.size} position={[p.bx, p.by, p.z]}>
+      <ShapeGeometry kind={p.kind} />
+      {wire ? (
+        <meshBasicMaterial color={p.color} wireframe transparent opacity={0.28} />
+      ) : (
+        <meshPhysicalMaterial color={p.color} metalness={0.55} roughness={0.22} clearcoat={1} clearcoatRoughness={0.12} emissive={p.color} emissiveIntensity={0.18} flatShading={p.kind === "ico" || p.kind === "octa" || p.kind === "cube"} />
+      )}
+    </mesh>
   );
+}
+
+function Shapes({ pointer }: { pointer: Pointer }) {
+  const { viewport, size } = useThree();
+  const wide = viewport.width / viewport.height > 1.25;
+  const wpp = viewport.width / size.width; // world units per CSS pixel
+  // Shapes further back look smaller and pulled toward the centre, so scale their placement by the camera distance (6).
+  const f = (z: number) => (6 - z) / 6;
+  const placed: Placed[] = wide
+    ? SPECS.map((s) => ({ ...s, bx: s.x * viewport.width * f(s.z), by: s.y * viewport.height * f(s.z), size: s.size * f(s.z) }))
+    : PHONE_SPECS.map((s) => ({ ...s, bx: s.dx * wpp * f(s.z), by: (viewport.height / 2 - s.top * wpp) * f(s.z), size: s.r * wpp * f(s.z) }));
+  return <>{placed.map((p, i) => <Shape key={i} p={p} pointer={pointer} />)}</>;
 }
 
 function dotTexture() {
@@ -89,7 +103,7 @@ function mulberry32(seed: number) {
   };
 }
 
-function Particles({ pointer, count }: { pointer: React.RefObject<{ x: number; y: number }>; count: number }) {
+function Particles({ pointer, count }: { pointer: Pointer; count: number }) {
   const ref = useRef<THREE.Points>(null);
   const sprite = useMemo(() => dotTexture(), []);
   const { positions, colors } = useMemo(() => {
@@ -140,7 +154,7 @@ export default function HeroCanvas({ active }: { active: boolean }) {
       <pointLight position={[-4, -2, 3]} intensity={30} color="#22d3ee" />
       <pointLight position={[4, 2, -2]} intensity={25} color="#8b5cf6" />
       <Particles pointer={pointer} count={small ? 380 : 900} />
-      <Logo pointer={pointer} />
+      <Shapes pointer={pointer} />
     </Canvas>
   );
 }

@@ -34,7 +34,7 @@ export function HeroSection({ profile, links }: { profile: Profile; links: Socia
             )}
           </div>
         </div>
-        <div className="relative z-0 order-1 mx-auto w-48 sm:w-64 lg:order-2 lg:w-full lg:max-w-sm">
+        <div className="relative z-10 order-1 mx-auto w-48 sm:w-64 lg:order-2 lg:w-full lg:max-w-sm">
           <div className="float-y glow-pulse relative aspect-square rounded-[2rem] border border-border bg-gradient-to-br from-accent-strong/40 to-elevated p-2">
             <div className="relative size-full overflow-hidden rounded-[1.6rem] bg-surface">
               <Image src={profile.avatarUrl ?? "/images/jatin-portrait.webp"} alt={`${profile.displayName} in his development workspace`} fill priority sizes="(min-width: 1024px) 24rem, 16rem" className="object-cover" />
