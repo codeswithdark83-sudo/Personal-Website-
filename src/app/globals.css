@@ -16,6 +16,9 @@
   --success: #34d399;
   --warning: #fbbf24;
   --danger: #f87171;
+  --hi: rgba(255, 255, 255, 0.09);
+  --lo: rgba(0, 0, 0, 0.28);
+  --drop: 0 1px 2px rgba(0, 0, 0, 0.4), 0 16px 30px -18px rgba(0, 0, 0, 0.75);
 }
 
 .light {
@@ -31,6 +34,9 @@
   --success: #047857;
   --warning: #b45309;
   --danger: #b91c1c;
+  --hi: rgba(255, 255, 255, 0.95);
+  --lo: rgba(13, 18, 32, 0.07);
+  --drop: 0 1px 2px rgba(20, 30, 60, 0.12), 0 16px 30px -18px rgba(20, 30, 60, 0.35);
 }
 
 @theme inline {
@@ -129,15 +135,37 @@ h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: -0.02em; text
 .nav-link::after { content: ""; position: absolute; left: 0; right: 0; bottom: 6px; height: 2px; border-radius: 2px; background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform 0.3s ease; }
 .nav-link:hover::after, .nav-link[aria-current="page"]::after { transform: scaleX(1); }
 
-/* Every box on the public pages glows under the pointer, with a soft spotlight that follows it. */
-main#main :is([class*="rounded-lg"], [class*="rounded-xl"], [class*="rounded-2xl"])[class*="border"]:not(input, select, textarea, img, svg) {
+/* Depth: boxes are raised slabs (lit top edge, shaded bottom edge, soft drop shadow) and glow under the pointer. */
+main#main :is([class*="rounded-lg"], [class*="rounded-xl"], [class*="rounded-2xl"])[class*="border"]:not(input, select, textarea, img, svg, .btn3d) {
+  background-image: linear-gradient(180deg, var(--hi), transparent 55%);
+  box-shadow: inset 0 1px 0 var(--hi), inset 0 -1px 0 var(--lo), var(--drop);
   transition: box-shadow 0.3s ease, border-color 0.3s ease, background-color 0.3s ease, transform 0.3s cubic-bezier(0.2, 0.7, 0.2, 1);
 }
-main#main :is([class*="rounded-lg"], [class*="rounded-xl"], [class*="rounded-2xl"])[class*="border"]:not(input, select, textarea, img, svg):hover {
+main#main :is([class*="rounded-lg"], [class*="rounded-xl"], [class*="rounded-2xl"])[class*="border"]:not(input, select, textarea, img, svg, .btn3d):hover {
   border-color: color-mix(in srgb, var(--accent) 60%, var(--border));
-  box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 28%, transparent), 0 0 30px -4px color-mix(in srgb, var(--accent-strong) 55%, transparent);
-  background-image: radial-gradient(240px circle at var(--mx, 50%) var(--my, 50%), color-mix(in srgb, var(--accent) 16%, transparent), transparent 70%);
+  box-shadow: inset 0 1px 0 var(--hi), inset 0 -1px 0 var(--lo), 0 0 0 1px color-mix(in srgb, var(--accent) 28%, transparent), 0 0 30px -4px color-mix(in srgb, var(--accent-strong) 55%, transparent), 0 22px 36px -20px rgba(0, 0, 0, 0.6);
+  background-image: radial-gradient(240px circle at var(--mx, 50%) var(--my, 50%), color-mix(in srgb, var(--accent) 16%, transparent), transparent 70%), linear-gradient(180deg, var(--hi), transparent 55%);
 }
+
+/* 3D buttons: a solid edge underneath that the button presses down into. */
+.btn3d { position: relative; transition: transform 0.12s ease, box-shadow 0.12s ease, filter 0.2s ease, background-color 0.2s; will-change: transform; }
+.btn3d-primary {
+  background-image: linear-gradient(180deg, #6b9bff 0%, var(--accent-strong) 55%, #2f63e0 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45), inset 0 -2px 0 rgba(0, 0, 0, 0.12), 0 4px 0 #1d3fa0, 0 12px 20px -8px rgba(61, 123, 255, 0.65);
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+}
+.btn3d-secondary {
+  background-image: linear-gradient(180deg, var(--elevated), var(--surface));
+  box-shadow: inset 0 1px 0 var(--hi), 0 4px 0 color-mix(in srgb, var(--border) 85%, #000), 0 12px 18px -10px rgba(0, 0, 0, 0.55);
+}
+.btn3d:hover { transform: translateY(-2px); filter: brightness(1.08); }
+.btn3d-primary:hover { box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5), inset 0 -2px 0 rgba(0, 0, 0, 0.12), 0 6px 0 #1d3fa0, 0 18px 26px -8px rgba(91, 140, 255, 0.8); }
+.btn3d-secondary:hover { box-shadow: inset 0 1px 0 var(--hi), 0 6px 0 color-mix(in srgb, var(--border) 85%, #000), 0 16px 22px -10px rgba(0, 0, 0, 0.6); }
+.btn3d:active { transform: translateY(3px); filter: none; }
+.btn3d-primary:active { box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 1px 0 #1d3fa0, 0 4px 8px -4px rgba(61, 123, 255, 0.6); }
+.btn3d-secondary:active { box-shadow: inset 0 1px 0 var(--hi), 0 1px 0 color-mix(in srgb, var(--border) 85%, #000); }
+.btn3d:disabled, .btn3d[aria-disabled="true"] { box-shadow: none; transform: none; }
+@media (prefers-reduced-motion: reduce) { .btn3d { transition: none; } .btn3d:hover, .btn3d:active { transform: none; } }
 
 /* Scroll-driven effects. Pure CSS; browsers without support simply show everything. */
 @supports (animation-timeline: view()) {

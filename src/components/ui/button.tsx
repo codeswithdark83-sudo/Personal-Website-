@@ -3,12 +3,12 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 export const buttonVariants = cva(
-  "inline-flex min-h-11 items-center justify-center gap-2 rounded-lg px-5 text-sm font-medium transition duration-200 active:scale-[0.97] disabled:pointer-events-none disabled:opacity-50",
+  "inline-flex min-h-11 items-center justify-center gap-2 rounded-lg px-5 text-sm font-medium transition duration-200 disabled:pointer-events-none disabled:opacity-50",
   {
     variants: {
       variant: {
-        primary: "bg-accent-strong text-white hover:bg-accent-strong/90",
-        secondary: "border border-border bg-surface text-foreground hover:bg-elevated",
+        primary: "btn3d btn3d-primary text-white",
+        secondary: "btn3d btn3d-secondary border border-border text-foreground",
         ghost: "text-muted hover:text-foreground",
       },
       size: { md: "", sm: "min-h-9 px-3 text-xs" },
