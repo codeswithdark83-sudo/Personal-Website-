@@ -123,8 +123,8 @@ h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: -0.02em; text
 .glow { background-size: 140% 140%; animation: drift 14s ease-in-out infinite; }
 
 /* Hover polish: cards lift, links in the header get a sliding underline. */
-.lift { transition: transform 0.3s cubic-bezier(0.2, 0.7, 0.2, 1), border-color 0.3s, box-shadow 0.3s; }
-.lift:hover { transform: translateY(-4px); box-shadow: 0 16px 40px -18px color-mix(in srgb, var(--accent-strong) 60%, transparent); }
+.lift { transition: transform 0.2s cubic-bezier(0.2, 0.7, 0.2, 1), border-color 0.3s, box-shadow 0.3s; }
+.lift:hover { transform: perspective(900px) translateY(-4px) rotateX(var(--tx, 0deg)) rotateY(var(--ty, 0deg)); box-shadow: 0 16px 40px -18px color-mix(in srgb, var(--accent-strong) 60%, transparent); }
 .nav-link { position: relative; }
 .nav-link::after { content: ""; position: absolute; left: 0; right: 0; bottom: 6px; height: 2px; border-radius: 2px; background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform 0.3s ease; }
 .nav-link:hover::after, .nav-link[aria-current="page"]::after { transform: scaleX(1); }
