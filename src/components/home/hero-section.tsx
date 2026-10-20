@@ -2,15 +2,17 @@ import Image from "next/image";
 import Link from "next/link";
 import { Download } from "lucide-react";
 import { ButtonLink } from "@/components/ui/button";
+import { HeroScene } from "@/components/three/hero-scene";
 import { SocialLinks } from "@/components/layout/social-links";
 import type { Profile } from "@/lib/content";
 import type { SocialLink } from "@/types/content";
 
 export function HeroSection({ profile, links }: { profile: Profile; links: SocialLink[] }) {
   return (
-    <section className="glow">
+    <section className="glow relative isolate overflow-hidden">
+      <HeroScene />
       <div className="container-page grid items-center gap-10 py-14 sm:py-20 lg:grid-cols-[1.2fr_1fr] lg:py-24">
-        <div className="order-2 lg:order-1">
+        <div className="relative z-10 order-2 lg:order-1">
           <p style={{ "--d": "0ms" } as React.CSSProperties} className="rise text-xs font-medium uppercase tracking-[0.25em] text-accent">Hello, I&apos;m</p>
           <h1 style={{ "--d": "100ms" } as React.CSSProperties} className="rise mt-3 text-4xl font-semibold sm:text-5xl lg:text-6xl">{profile.displayName}</h1>
           <p style={{ "--d": "200ms" } as React.CSSProperties} className="rise mt-3 font-display text-xl sm:text-2xl">{profile.headline}</p>
@@ -32,7 +34,7 @@ export function HeroSection({ profile, links }: { profile: Profile; links: Socia
             )}
           </div>
         </div>
-        <div className="order-1 mx-auto w-48 sm:w-64 lg:order-2 lg:w-full lg:max-w-sm">
+        <div className="relative z-0 order-1 mx-auto w-48 sm:w-64 lg:order-2 lg:w-full lg:max-w-sm">
           <div className="float-y glow-pulse relative aspect-square rounded-[2rem] border border-border bg-gradient-to-br from-accent-strong/40 to-elevated p-2">
             <div className="relative size-full overflow-hidden rounded-[1.6rem] bg-surface">
               <Image src={profile.avatarUrl ?? "/images/jatin-portrait.webp"} alt={`${profile.displayName} in his development workspace`} fill priority sizes="(min-width: 1024px) 24rem, 16rem" className="object-cover" />

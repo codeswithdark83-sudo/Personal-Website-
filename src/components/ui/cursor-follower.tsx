@@ -33,6 +33,13 @@ export function CursorFollower() {
       const over = (e.target as Element | null)?.closest?.(INTERACTIVE);
       ring.current?.setAttribute("data-hover", over ? "true" : "false");
       // Tell the hovered box (and any box around it) where the pointer is, so its glow follows.
+      // 3D tilt: cards lean toward the pointer (CSS applies it only while hovered).
+      const card = (e.target as Element | null)?.closest?.(".lift") as HTMLElement | null | undefined;
+      if (card) {
+        const r = card.getBoundingClientRect();
+        card.style.setProperty("--tx", `${(-((e.clientY - r.top) / r.height - 0.5) * 9).toFixed(2)}deg`);
+        card.style.setProperty("--ty", `${(((e.clientX - r.left) / r.width - 0.5) * 11).toFixed(2)}deg`);
+      }
       let box = (e.target as Element | null)?.closest?.(BOX) as HTMLElement | null | undefined;
       while (box) {
         const r = box.getBoundingClientRect();

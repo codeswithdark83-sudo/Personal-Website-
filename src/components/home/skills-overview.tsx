@@ -2,12 +2,14 @@ import Link from "next/link";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
+import { SkillSphere } from "@/components/three/skill-sphere";
 import type { SkillGroup } from "@/types/content";
 
 export function SkillsOverview({ groups }: { groups: SkillGroup[] }) {
   return (
     <section className="container-page mt-20 sm:mt-28">
       <SectionHeading eyebrow="Toolbox" title="Technical skills" description="Technologies I work with." />
+      <SkillSphere groups={groups} />
       <div className="mt-8 grid gap-4 md:grid-cols-3">
         {groups.map((g) => (
           <Card key={g.category}>
