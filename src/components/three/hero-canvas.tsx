@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useRef } from "react";
+import { useRef } from "react";
 import * as THREE from "three";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { usePointerRef } from "./use-3d";
@@ -82,61 +82,6 @@ function Shapes({ pointer }: { pointer: Pointer }) {
   return <>{placed.map((p, i) => <Shape key={i} p={p} pointer={pointer} />)}</>;
 }
 
-function dotTexture() {
-  const c = document.createElement("canvas");
-  c.width = c.height = 64;
-  const g = c.getContext("2d")!;
-  const grad = g.createRadialGradient(32, 32, 0, 32, 32, 32);
-  grad.addColorStop(0, "rgba(255,255,255,1)"); grad.addColorStop(0.4, "rgba(255,255,255,0.6)"); grad.addColorStop(1, "rgba(255,255,255,0)");
-  g.fillStyle = grad; g.fillRect(0, 0, 64, 64);
-  return new THREE.CanvasTexture(c);
-}
-
-/** Small deterministic PRNG so the particle field is stable and the render stays pure. */
-function mulberry32(seed: number) {
-  let a = seed;
-  return () => {
-    a = (a + 0x6d2b79f5) | 0;
-    let t = Math.imul(a ^ (a >>> 15), 1 | a);
-    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
-    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-  };
-}
-
-function Particles({ pointer, count }: { pointer: Pointer; count: number }) {
-  const ref = useRef<THREE.Points>(null);
-  const sprite = useMemo(() => dotTexture(), []);
-  const { positions, colors } = useMemo(() => {
-    const rnd = mulberry32(7);
-    const positions = new Float32Array(count * 3), colors = new Float32Array(count * 3);
-    const a = new THREE.Color("#22d3ee"), b = new THREE.Color("#8b5cf6"), c = new THREE.Color();
-    for (let i = 0; i < count; i++) {
-      const r = 3 + rnd() * 5, th = rnd() * Math.PI * 2, ph = Math.acos(2 * rnd() - 1);
-      positions.set([r * Math.sin(ph) * Math.cos(th), r * Math.sin(ph) * Math.sin(th) * 0.7, r * Math.cos(ph) - 2], i * 3);
-      c.copy(a).lerp(b, rnd()); colors.set([c.r, c.g, c.b], i * 3);
-    }
-    return { positions, colors };
-  }, [count]);
-
-  useFrame(({ clock }, dt) => {
-    const p = ref.current;
-    if (!p) return;
-    const k = 1 - Math.exp(-dt * 2.5);
-    p.rotation.y += (clock.elapsedTime * 0.04 + pointer.current.x * 0.35 - p.rotation.y) * k;
-    p.rotation.x += (pointer.current.y * 0.2 - p.rotation.x) * k;
-  });
-
-  return (
-    <points ref={ref}>
-      <bufferGeometry>
-        <bufferAttribute attach="attributes-position" args={[positions, 3]} />
-        <bufferAttribute attach="attributes-color" args={[colors, 3]} />
-      </bufferGeometry>
-      <pointsMaterial size={0.09} map={sprite} alphaMap={sprite} sizeAttenuation vertexColors transparent opacity={0.75} depthWrite={false} blending={THREE.AdditiveBlending} />
-    </points>
-  );
-}
-
 export default function HeroCanvas({ active }: { active: boolean }) {
   const pointer = usePointerRef();
   const small = typeof window !== "undefined" && window.innerWidth < 768;
@@ -153,7 +98,6 @@ export default function HeroCanvas({ active }: { active: boolean }) {
       <directionalLight position={[3, 4, 5]} intensity={2.2} />
       <pointLight position={[-4, -2, 3]} intensity={30} color="#22d3ee" />
       <pointLight position={[4, 2, -2]} intensity={25} color="#8b5cf6" />
-      <Particles pointer={pointer} count={small ? 380 : 900} />
       <Shapes pointer={pointer} />
     </Canvas>
   );
