@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { createServiceClient } from "@/lib/supabase/admin";
+import { createPublicClient } from "@/lib/supabase/public";
 import { inquirySchema } from "@/lib/validation/inquiry";
 import { clientIp, rateLimit } from "@/lib/rate-limit/memory";
 import { sendInquiryEmail } from "@/lib/email/inquiry";
@@ -29,21 +30,28 @@ export async function POST(req: Request) {
   const { website: _hp, ...data } = parsed.data;
   void _hp;
 
-  if (!process.env.SUPABASE_SERVICE_ROLE_KEY || !process.env.NEXT_PUBLIC_SUPABASE_URL) {
-    return json({ ok: false, error: "The inquiry form is not available right now. Please email or WhatsApp me instead." }, 503);
-  }
+  const unavailable = () => json({ ok: false, error: "The inquiry form is not available right now. Please email or WhatsApp me instead." }, 503);
 
-  let id: string;
   try {
-    const supabase = createServiceClient();
-    const { data: row, error } = await supabase.from("inquiries").insert(data).select("id").single();
-    if (error) throw error;
-    id = row.id;
-    // Email is best-effort: the inquiry is already saved, so a mail failure must not lose it or turn into an error.
-    try {
-      const status = await sendInquiryEmail(data);
-      await supabase.from("inquiries").update({ email_notification: status }).eq("id", id);
-    } catch { /* record stays 'pending'; visible in the admin inbox */ }
+    if (process.env.SUPABASE_SERVICE_ROLE_KEY && process.env.NEXT_PUBLIC_SUPABASE_URL) {
+      // Preferred path: private server key; lets us record the email-notification result on the row.
+      const supabase = createServiceClient();
+      const { data: row, error } = await supabase.from("inquiries").insert(data).select("id").single();
+      if (error) throw error;
+      // Email is best-effort: the inquiry is already saved, so a mail failure must not lose it or turn into an error.
+      try {
+        const status = await sendInquiryEmail(data);
+        await supabase.from("inquiries").update({ email_notification: status }).eq("id", row.id);
+      } catch { /* record stays 'pending'; visible in the admin inbox */ }
+    } else {
+      // No private key configured: fall back to the public key. The database only lets this key ADD a new-status row
+      // (see migration 20261024000010); it cannot read, change or delete anything.
+      const supabase = createPublicClient();
+      if (!supabase) return unavailable();
+      const { error } = await supabase.from("inquiries").insert(data);
+      if (error) throw error;
+      try { await sendInquiryEmail(data); } catch { /* best-effort */ }
+    }
   } catch (e) {
     console.error("[inquiry] save failed", (e as { code?: string }).code);
     return json({ ok: false, error: "Could not send your inquiry. Please try again or email me directly." }, 500);
